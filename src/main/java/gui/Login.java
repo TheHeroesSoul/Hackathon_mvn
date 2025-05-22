@@ -8,12 +8,23 @@ import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
     private JPasswordField passwordField1;
-    private JPanel panel1;
+    private JPanel loginPanel;
     private JTextField textField1;
     private JButton enterButton;
 
+    public Login() {
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Login");
+        frame.setContentPane(new Login().loginPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
     public Login(Controller controller) {
-        setContentPane(panel1);
+        setContentPane(loginPanel);
         setTitle("Login");
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

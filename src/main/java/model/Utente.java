@@ -7,7 +7,11 @@ public class Utente {
     protected String nome;
     protected String cognome;
     protected boolean isRegistrato;
+    protected String password;
 
+    public Utente(String username){
+        this.username = username;
+    }
     public Utente(int id, String username,String email, String nome, String cognome) {
         this.id = id;
         this.username = username;
