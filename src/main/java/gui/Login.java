@@ -25,12 +25,11 @@ public class Login extends JFrame {
 
         enterButton = new JButton("Login");
 
-        // Aggiungi elementi al pannello
         loginPanel.add(usernameLabel);
         loginPanel.add(textField1);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField1);
-        loginPanel.add(new JLabel()); // spazio vuoto
+        loginPanel.add(new JLabel());
         loginPanel.add(enterButton);
 
         setContentPane(loginPanel);
@@ -51,7 +50,7 @@ public class Login extends JFrame {
     }
 
     public static void main(String[] args) {
-        Controller controller = new Controller(); // oppure mock
+        Controller controller = new Controller();
         new Login(controller);
     }
 }
