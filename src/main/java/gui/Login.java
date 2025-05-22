@@ -3,27 +3,36 @@ package main.java.gui;
 import main.java.controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
     private JPasswordField passwordField1;
-    private JPanel loginPanel;
     private JTextField textField1;
     private JButton enterButton;
-
-    public Login() {
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Login");
-        frame.setContentPane(new Login().loginPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
+    private JPanel loginPanel;
 
     public Login(Controller controller) {
+        loginPanel = new JPanel();
+        loginPanel.setLayout(new GridLayout(3, 2, 10, 10));
+
+        JLabel usernameLabel = new JLabel("Username:");
+        textField1 = new JTextField();
+
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordField1 = new JPasswordField();
+
+        enterButton = new JButton("Login");
+
+        // Aggiungi elementi al pannello
+        loginPanel.add(usernameLabel);
+        loginPanel.add(textField1);
+        loginPanel.add(passwordLabel);
+        loginPanel.add(passwordField1);
+        loginPanel.add(new JLabel()); // spazio vuoto
+        loginPanel.add(enterButton);
+
         setContentPane(loginPanel);
         setTitle("Login");
         setSize(400, 200);
@@ -39,5 +48,10 @@ public class Login extends JFrame {
                 controller.login(username);
             }
         });
+    }
+
+    public static void main(String[] args) {
+        Controller controller = new Controller(); // oppure mock
+        new Login(controller);
     }
 }
