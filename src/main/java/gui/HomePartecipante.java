@@ -5,6 +5,11 @@ import java.awt.*;
 
 public class HomePartecipante extends JFrame {
 
+    private JPanel panel1;
+    private JList teamList;
+    private JList utentiList;
+    private JList invitoPanel;
+
     public HomePartecipante() {
         setTitle("Home Partecipante");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

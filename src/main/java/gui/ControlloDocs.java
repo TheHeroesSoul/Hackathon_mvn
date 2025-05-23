@@ -1,61 +1,62 @@
 package main.java.gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class ControlloDocs extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private JList list1;
+    private JList<String> list1;
+    private JButton buttonInvia;
+    private JButton buttonBack;
 
     public ControlloDocs() {
-        setContentPane(contentPane);
+        setTitle("Controllo Documenti");
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        JPanel contentPane = new JPanel(new BorderLayout());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        DefaultListModel<String> model = new DefaultListModel<>();
+        model.addElement("Documento1.pdf");
+        model.addElement("Documento2.pdf");
+        model.addElement("Documento3.pdf");
+        list1 = new JList<>(model);
+        contentPane.add(new JScrollPane(list1), BorderLayout.CENTER);
 
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonInvia = new JButton("Invia");
+        buttonBack = new JButton("Back");
 
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        buttonInvia.addActionListener(e -> onInvia());
+        buttonBack.addActionListener(e -> onCancel());
+
+        buttonPanel.add(buttonInvia);
+        buttonPanel.add(buttonBack);
+
+        contentPane.add(buttonPanel, BorderLayout.SOUTH);
+
+        setContentPane(contentPane);
     }
 
-    private void onOK() {
-        // add your code here
-        dispose();
+    private void onInvia() {
+        String selected = list1.getSelectedValue();
+        if (selected != null) {
+            JOptionPane.showMessageDialog(this, "Documento inviato: " + selected);
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleziona un documento da inviare.");
+        }
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 
     public static void main(String[] args) {
-        ControlloDocs dialog = new ControlloDocs();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+        SwingUtilities.invokeLater(() -> {
+            ControlloDocs dialog = new ControlloDocs();
+            dialog.setVisible(true);
+        });
     }
 }

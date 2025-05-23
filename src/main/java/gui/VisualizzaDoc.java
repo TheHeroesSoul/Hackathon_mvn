@@ -9,6 +9,7 @@ public class VisualizzaDoc extends JDialog {
     private JComboBox<Integer> votoComboBox;
     private JButton valutaButton;
     private JButton cancellaButton;
+    private JPanel contentPane;
 
     public VisualizzaDoc() {
         setTitle("Valutazione Documento");

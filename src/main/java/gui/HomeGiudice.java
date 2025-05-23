@@ -5,6 +5,11 @@ import java.awt.*;
 
 public class HomeGiudice extends JFrame {
 
+    private JButton backButton;
+    private JButton cercaButton;
+    private JList list1;
+    private JTextField textField1;
+
     public HomeGiudice() {
         setTitle("Home Giudice");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

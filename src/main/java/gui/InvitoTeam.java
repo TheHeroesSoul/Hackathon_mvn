@@ -10,28 +10,28 @@ public class InvitoTeam extends JDialog {
     private JButton accettaButton;
     private JButton standbyButton;
     private JButton rifiutaButton;
-    private JPanel mainPanel;
+    private JPanel contentPane;
 
     public InvitoTeam(JFrame parent) {
         super(parent, "Invito Team", true);
 
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout(10, 10));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        contentPane = new JPanel();
+        contentPane.setLayout(new BorderLayout(10, 10));
+        contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         intestazioneTextPane = new JTextPane();
-        intestazioneTextPane.setText("Utente1 ti ha invitato a entrare nel Team BRR BRR PATAPIM!");
+        intestazioneTextPane.setText("Utente1 Ti ha invitato al Team!");
         intestazioneTextPane.setEditable(false);
         intestazioneTextPane.setBackground(null);
         intestazioneTextPane.setBorder(null);
-        mainPanel.add(intestazioneTextPane, BorderLayout.NORTH);
+        contentPane.add(intestazioneTextPane, BorderLayout.NORTH);
 
         messaggioTextPane = new JTextPane();
         messaggioTextPane.setText("Ehi Pippo, entra nel team per lavorare insieme al progetto!");
         messaggioTextPane.setEditable(false);
         messaggioTextPane.setBackground(null);
         messaggioTextPane.setBorder(BorderFactory.createTitledBorder("Messaggio"));
-        mainPanel.add(messaggioTextPane, BorderLayout.CENTER);
+        contentPane.add(messaggioTextPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 0));
         accettaButton = new JButton("ACCETTA");
@@ -42,9 +42,9 @@ public class InvitoTeam extends JDialog {
         buttonPanel.add(standbyButton);
         buttonPanel.add(rifiutaButton);
 
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        contentPane.add(buttonPanel, BorderLayout.SOUTH);
 
-        setContentPane(mainPanel);
+        setContentPane(contentPane);
         setSize(500, 250);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -70,7 +70,7 @@ public class InvitoTeam extends JDialog {
             }
         });
 
-        mainPanel.registerKeyboardAction(e -> dispose(),
+        contentPane.registerKeyboardAction(e -> dispose(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
         );
