@@ -1,62 +1,65 @@
 package main.java.gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class VisualizzaDoc extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private JComboBox comboBox1;
-    private JTextPane textPane1;
+    private JTextPane documentoTextPane;
+    private JComboBox<Integer> votoComboBox;
+    private JButton valutaButton;
+    private JButton cancellaButton;
 
     public VisualizzaDoc() {
-        setContentPane(contentPane);
+        setTitle("Valutazione Documento");
+        setSize(600, 400);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JTextArea messaggioArea = new JTextArea("Messaggio del team:\nAbbiamo completato l'upload.");
+        messaggioArea.setEditable(false);
+        messaggioArea.setBackground(panel.getBackground());
+        messaggioArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
+        panel.add(messaggioArea, BorderLayout.NORTH);
+
+        documentoTextPane = new JTextPane();
+        documentoTextPane.setText("public class ProgressoTeam {\n    // Codice e spiegazione del progresso qui\n}");
+        documentoTextPane.setEditable(false);
+        panel.add(new JScrollPane(documentoTextPane), BorderLayout.CENTER);
+
+        JPanel sud = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        votoComboBox = new JComboBox<>();
+        for (int i = 1; i <= 10; i++) {
+            votoComboBox.addItem(i);
+        }
+        sud.add(votoComboBox);
+
+        valutaButton = new JButton("Valuta");
+        cancellaButton = new JButton("Cancella");
+
+        sud.add(valutaButton);
+        sud.add(cancellaButton);
+
+        panel.add(sud, BorderLayout.SOUTH);
+        setContentPane(panel);
+
+        valutaButton.addActionListener(e -> {
+            int voto = (Integer) votoComboBox.getSelectedItem();
+            JOptionPane.showMessageDialog(this, "Hai assegnato il voto: " + voto);
+            dispose();
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
+        cancellaButton.addActionListener(e -> dispose());
     }
 
     public static void main(String[] args) {
-        VisualizzaDoc dialog = new VisualizzaDoc();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+        SwingUtilities.invokeLater(() -> {
+            VisualizzaDoc dialog = new VisualizzaDoc();
+            dialog.setVisible(true);
+        });
     }
 }
