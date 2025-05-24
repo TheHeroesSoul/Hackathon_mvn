@@ -1,8 +1,9 @@
 package main.java.gui;
 
+import main.java.model.Utente;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class CreazioneHackathon extends JDialog {
     private JTextField titoloField;
@@ -16,99 +17,79 @@ public class CreazioneHackathon extends JDialog {
     private JButton invitaGiudiceButton;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JPanel contentPane;
 
-    public CreazioneHackathon() {
+    public CreazioneHackathon(Utente utente) {
         setTitle("Creazione Hackathon");
-        setSize(500, 500);
+        setSize(400, 500);
         setLocationRelativeTo(null);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel contentPane = new JPanel(new BorderLayout(10, 10));
+        JPanel contentPane = new JPanel();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel formPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        contentPane.add(new JLabel("Titolo:"));
+        titoloField = new JTextField();
+        contentPane.add(titoloField);
 
-        formPanel.add(new JLabel("Titolo"), gbc);
-        gbc.gridx = 1;
-        titoloField = new JTextField(20);
-        formPanel.add(titoloField, gbc);
+        contentPane.add(Box.createVerticalStrut(10));
 
-        gbc.gridx = 0;
-        gbc.gridy++;
-        gbc.gridwidth = 2;
-        formPanel.add(new JLabel("Specifiche"), gbc);
-        gbc.gridwidth = 1;
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Sede"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(new JLabel("Sede:"));
         sedeField = new JTextField();
-        formPanel.add(sedeField, gbc);
+        contentPane.add(sedeField);
 
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Data Inizio"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(Box.createVerticalStrut(10));
+
+        contentPane.add(new JLabel("Data Inizio:"));
         dataInizioField = new JTextField();
-        formPanel.add(dataInizioField, gbc);
+        contentPane.add(dataInizioField);
 
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Data Fine"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(Box.createVerticalStrut(10));
+
+        contentPane.add(new JLabel("Data Fine:"));
         dataFineField = new JTextField();
-        formPanel.add(dataFineField, gbc);
+        contentPane.add(dataFineField);
 
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Max Iscritti"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(Box.createVerticalStrut(10));
+
+        contentPane.add(new JLabel("Max Iscritti:"));
         maxIscrittiField = new JTextField();
-        formPanel.add(maxIscrittiField, gbc);
+        contentPane.add(maxIscrittiField);
 
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Max Componenti Team"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(Box.createVerticalStrut(10));
+
+        contentPane.add(new JLabel("Max Componenti Team:"));
         maxComponentiField = new JTextField();
-        formPanel.add(maxComponentiField, gbc);
+        contentPane.add(maxComponentiField);
 
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Data Inizio Iscrizioni"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(Box.createVerticalStrut(10));
+
+        contentPane.add(new JLabel("Data Inizio Iscrizioni:"));
         dataInizioIscrizioniField = new JTextField();
-        formPanel.add(dataInizioIscrizioniField, gbc);
+        contentPane.add(dataInizioIscrizioniField);
 
-        gbc.gridy++;
-        gbc.gridx = 0;
-        formPanel.add(new JLabel("Problema"), gbc);
-        gbc.gridx = 1;
+        contentPane.add(Box.createVerticalStrut(10));
+
+        contentPane.add(new JLabel("Problema:"));
         problemaArea = new JTextArea(4, 20);
-        formPanel.add(new JScrollPane(problemaArea), gbc);
+        JScrollPane scrollPane = new JScrollPane(problemaArea);
+        contentPane.add(scrollPane);
 
-        contentPane.add(formPanel, BorderLayout.CENTER);
+        contentPane.add(Box.createVerticalStrut(10));
 
         invitaGiudiceButton = new JButton("Invita Giudice");
-        JPanel centerBottomPanel = new JPanel();
-        centerBottomPanel.add(invitaGiudiceButton);
-        contentPane.add(centerBottomPanel, BorderLayout.SOUTH);
+        contentPane.add(invitaGiudiceButton);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        contentPane.add(Box.createVerticalStrut(10));
+
+        JPanel buttonsPanel = new JPanel();
         buttonOK = new JButton("OK");
         buttonCancel = new JButton("Cancel");
+        buttonsPanel.add(buttonOK);
+        buttonsPanel.add(buttonCancel);
 
-        buttonPanel.add(buttonOK);
-        buttonPanel.add(buttonCancel);
-        contentPane.add(buttonPanel, BorderLayout.PAGE_END);
+        contentPane.add(buttonsPanel);
 
         buttonOK.addActionListener(e -> onOK());
         buttonCancel.addActionListener(e -> onCancel());
@@ -126,7 +107,8 @@ public class CreazioneHackathon extends JDialog {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            CreazioneHackathon dialog = new CreazioneHackathon();
+            Utente u = new Utente("pippoepluto");
+            CreazioneHackathon dialog = new CreazioneHackathon(u);
             dialog.setVisible(true);
         });
     }
