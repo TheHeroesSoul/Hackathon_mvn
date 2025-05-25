@@ -53,4 +53,5 @@ public class Login extends JFrame {
         Controller controller = new Controller();
         new Login(controller);
     }
+
 }

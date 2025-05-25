@@ -3,7 +3,6 @@ package main.java.gui;
 import main.java.model.Utente;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class CreazioneHackathon extends JDialog {
     private JTextField titoloField;

@@ -2,7 +2,6 @@ package main.java.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class VisualizzaDoc extends JDialog {
     private JTextPane documentoTextPane;
@@ -63,4 +62,5 @@ public class VisualizzaDoc extends JDialog {
             dialog.setVisible(true);
         });
     }
+
 }

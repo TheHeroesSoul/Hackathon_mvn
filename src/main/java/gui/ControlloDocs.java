@@ -1,43 +1,38 @@
 package main.java.gui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class ControlloDocs extends JDialog {
+    private JPanel contentPane;
     private JList<String> list1;
     private JButton buttonInvia;
     private JButton buttonBack;
 
     public ControlloDocs() {
-        setTitle("Controllo Documenti");
-        setModal(true);
-        setSize(400, 300);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-        JPanel contentPane = new JPanel(new BorderLayout());
+        contentPane = new JPanel();
+        list1 = new JList<>();
+        buttonInvia = new JButton("Invia");
+        buttonBack = new JButton("Indietro");
 
         DefaultListModel<String> model = new DefaultListModel<>();
         model.addElement("Documento1.pdf");
         model.addElement("Documento2.pdf");
         model.addElement("Documento3.pdf");
-        list1 = new JList<>(model);
-        contentPane.add(new JScrollPane(list1), BorderLayout.CENTER);
+        list1.setModel(model);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonInvia = new JButton("Invia");
-        buttonBack = new JButton("Back");
+        contentPane.add(new JScrollPane(list1));
+        contentPane.add(buttonInvia);
+        contentPane.add(buttonBack);
+
+        setContentPane(contentPane);
+        setModal(true);
+        setTitle("Controllo Documenti");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         buttonInvia.addActionListener(e -> onInvia());
         buttonBack.addActionListener(e -> onCancel());
-
-        buttonPanel.add(buttonInvia);
-        buttonPanel.add(buttonBack);
-
-        contentPane.add(buttonPanel, BorderLayout.SOUTH);
-
-        setContentPane(contentPane);
     }
 
     private void onInvia() {

@@ -63,4 +63,5 @@ public class CreazioneInvitoGiudice extends JDialog {
             dialog.setVisible(true);
         });
     }
+
 }

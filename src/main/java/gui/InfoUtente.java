@@ -22,4 +22,5 @@ public class InfoUtente extends JFrame {
 
         setContentPane(mainPanel);
     }
+
 }

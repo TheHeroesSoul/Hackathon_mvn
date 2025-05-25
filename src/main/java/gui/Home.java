@@ -21,7 +21,6 @@ public class Home extends JFrame {
     public Home(Utente utente) {
         this.utente = utente;
 
-        // Pannello principale
         mainPanel = new JPanel(new BorderLayout());
 
         // Pannello con i bottoni in alto
@@ -33,11 +32,9 @@ public class Home extends JFrame {
         topPanel.add(creaHackathonButton);
         topPanel.add(logOutButton);
 
-        // Tabelle
         table1 = new JTable();
         table2 = new JTable();
 
-        // Split tra hackathon e inviti
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 new JScrollPane(table1),
                 new JScrollPane(table2));
@@ -103,4 +100,5 @@ public class Home extends JFrame {
             new Home(u).setVisible(true);
         });
     }
+
 }

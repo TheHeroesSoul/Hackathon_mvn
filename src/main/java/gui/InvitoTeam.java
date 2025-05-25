@@ -83,4 +83,5 @@ public class InvitoTeam extends JDialog {
             System.exit(0);
         });
     }
+
 }

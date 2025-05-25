@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,6 +11,7 @@ public class InvitoGiudice extends JDialog {
     private JButton accettaButton;
     private JButton standbyButton;
     private JButton rifiutaButton;
+    private JPanel contentPane;
     private JPanel mainPanel;
 
     public InvitoGiudice(JFrame parent) {
@@ -85,4 +87,5 @@ public class InvitoGiudice extends JDialog {
             System.exit(0);
         });
     }
+
 }

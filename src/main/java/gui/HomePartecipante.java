@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class HomePartecipante extends JFrame {
 
-    private JPanel panel1;
+    private JPanel contentPane;
     private JList teamList;
     private JList utentiList;
     private JList invitoPanel;
@@ -45,6 +45,7 @@ public class HomePartecipante extends JFrame {
         sinistraPanel.add(invitoPanel);
 
         JPanel destraPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+
 
         JPanel documentiPanel = new JPanel(new BorderLayout());
         documentiPanel.setBorder(BorderFactory.createTitledBorder("Documenti Inviati"));
