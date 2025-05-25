@@ -1,0 +1,1 @@
+Inserire in questa cartella il class diagram di dettaglio con le classi della GUI, del controller e del model, un eventuale documento che ne spieghi il significato e il nome o indirizzo della repository github che contiene il codice realizzato.
