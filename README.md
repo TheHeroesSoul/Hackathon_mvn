@@ -53,7 +53,7 @@ Ogni gruppo di studenti dovrà produrre:
 2. Package **controller** del progetto, che fa unico intermediario tra la GUI e il Model già realizzato. Si consiglia di realizzare un package Controller con un'unica classe denominata anch'essa Controller. 💻🔍
 3. Class diagram di dettaglio delle classi effettivamente implementate in java nei package gui, controller e model.
 
-Tutte le persone del gruppo dovranno svolgere questa attività di gruppo restituendo il link al repository GitHub dove viene caricato il codice (dovrebbe essere lo stesso utilizzato per l'homework precedente). Uno scheletro del progetto è, di nuov, disponibile a https://github.com/bbreve/Applicativo.. 🌐📦
+Tutte le persone del gruppo dovranno svolgere questa attività di gruppo restituendo il link al repository GitHub dove viene caricato il codice (dovrebbe essere lo stesso utilizzato per l'homework precedente). Uno scheletro del progetto è, di nuovo, disponibile a https://github.com/bbreve/Applicativo. 🌐📦
 
 L'attività deve essere completata entro il 25 maggio. ⏰📅
 
