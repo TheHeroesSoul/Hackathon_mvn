@@ -14,8 +14,8 @@ Durante l'hackathon, i team lavorano separatamente per risolvere il problema e d
 
 ## Studenti con matricola:
 - N86005440([Lista Lorenzo](https://github.com/TheHeroesSoul))
-- N86005493([Francesco Giuliani](https://github.com/elipnotic))
 - N86005645([Giulio Giangrande](https://github.com/imgg98))
+- N86005493([Francesco Giuliani](https://github.com/elipnotic))
 
 ## Prima Parte dell'Homework
 ### Ogni gruppo di studenti dovrà produrre:
@@ -67,3 +67,5 @@ E' consentita la consegna tardiva o incompleta degli elaborati ma corrisponderà
 - Applicare principi di separazione tra le parti di un progetto con un'architettura assegnata. ☕💻
 - Collabora efficacemente all'interno di un team per completare un progetto. 🤝👥
 - Scopri come utilizzare GitHub per il controllo delle versioni e la gestione dei progetti. 📊🔧
+
+## Terza Parte dell'Homework
