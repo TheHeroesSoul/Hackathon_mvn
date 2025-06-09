@@ -2,8 +2,8 @@ package main.java.model;
 
 public class Giudice extends Utente {
 
-    public Giudice(int id, String username, String email, String nome, String cognome) {
-        super(id, username, email, nome, cognome);
+    public Giudice(int id, String username, String email, String nome, String cognome, String password) {
+        super(id, username, email, nome, cognome, password);
     }
 
     public void selezionato(Hackathon hackathon) {

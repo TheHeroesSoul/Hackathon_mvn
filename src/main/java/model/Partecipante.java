@@ -2,8 +2,8 @@ package main.java.model;
 
 public class Partecipante extends Utente {
 
-    public Partecipante(int id, String username, String email, String nome, String cognome) {
-        super(id, username, email, nome, cognome);
+    public Partecipante(int id, String username, String email, String nome, String cognome, String password) {
+        super(id, username, email, nome, cognome, password);
     }
 
     public void accettaInvito(Invito invito) {

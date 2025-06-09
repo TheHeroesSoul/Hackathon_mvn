@@ -12,13 +12,14 @@ public class Utente {
     public Utente(String username){
         this.username = username;
     }
-    public Utente(int id, String username,String email, String nome, String cognome) {
+    public Utente(int id, String username,String email, String nome, String cognome, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.nome = nome;
         this.cognome = cognome;
         this.isRegistrato = false;
+        this.password = password;
     }
 
     public void registra() {
@@ -59,6 +60,14 @@ public class Utente {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

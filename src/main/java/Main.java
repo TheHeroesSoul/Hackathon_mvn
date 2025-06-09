@@ -25,15 +25,15 @@ public class Main {
         );
         System.out.println("Hackathon creato: " + hackathon.getTitolo());
 
-        Giudice giudice1 = new Giudice(2, "BestChef", "PannoCarta@libero.it", "Antonino", "Cannavacciuolo");
-        Giudice giudice2 = new Giudice(3, "NiceHair2010", "JB@gmail.com", "Justin", "Bieber");
+        Giudice giudice1 = new Giudice(2, "BestChef", "PannoCarta@libero.it", "Antonino", "Cannavacciuolo", "123123");
+        Giudice giudice2 = new Giudice(3, "NiceHair2010", "JB@gmail.com", "Justin", "Bieber", "123123");
         hackathon.aggiungiGiudice(giudice1);
         hackathon.aggiungiGiudice(giudice2);
         System.out.println("Giudici aggiunti: " + hackathon.getGiudici().size());
 
-        Partecipante partecipante1 = new Partecipante(4, "Capellone", "Sanremo@alice.it", "Pippo", "Baudo");
-        Partecipante partecipante2 = new Partecipante(5, "OilKing", "Johnson@yahoo.com", "Puff", "Diddy");
-        Partecipante partecipante3 = new Partecipante(6, "Nostradamus", "SoTuttoIo@Mail.com", "Fabrizio", "Corona");
+        Partecipante partecipante1 = new Partecipante(4, "Capellone", "Sanremo@alice.it", "Pippo", "Baudo", "123123");
+        Partecipante partecipante2 = new Partecipante(5, "OilKing", "Johnson@yahoo.com", "Puff", "Diddy", "123123");
+        Partecipante partecipante3 = new Partecipante(6, "Nostradamus", "SoTuttoIo@Mail.com", "Fabrizio", "Corona", "123123");
 
         hackathon.aggiungiPartecipante(partecipante1);
         hackathon.aggiungiPartecipante(partecipante2);
