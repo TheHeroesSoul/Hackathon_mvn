@@ -53,7 +53,7 @@ Ogni gruppo di studenti dovrà produrre:
 2. Package **controller** del progetto, che fa unico intermediario tra la GUI e il Model già realizzato. Si consiglia di realizzare un package Controller con un'unica classe denominata anch'essa Controller. 💻🔍
 3. Class diagram di dettaglio delle classi effettivamente implementate in java nei package gui, controller e model.
 
-Tutte le persone del gruppo dovranno svolgere questa attività di gruppo restituendo il link al repository GitHub dove viene caricato il codice (dovrebbe essere lo stesso utilizzato per l'homework precedente). Uno scheletro del progetto è, di nuovo, disponibile a https://github.com/bbreve/Applicativo. 🌐📦
+Tutte le persone del gruppo dovranno svolgere questa attività di gruppo restituendo il link al repository GitHub dove viene caricato il codice (dovrebbe essere lo stesso utilizzato per l'homework precedente). Uno scheletro del progetto è, di nuovo, disponibile a [bbreve/Applicativo](https://github.com/bbreve/Applicativo). 🌐📦
 
 L'attività deve essere completata entro il 25 maggio. ⏰📅
 
@@ -69,3 +69,37 @@ E' consentita la consegna tardiva o incompleta degli elaborati ma corrisponderà
 - Scopri come utilizzare GitHub per il controllo delle versioni e la gestione dei progetti. 📊🔧
 
 ## Terza Parte dell'Homework
+
+In questo compito a casa, i gruppi di studenti che hanno partecipato ai primi compiti devono completare il progetto software. L'obiettivo del terzo Homework è quello di aggiungere l'interfaccia al database in linea con il modello BCE + DAO presentato nel corso. Al termine del progetto, anche la sua documentazione deve essere completata e deve essere curata la qualità del codice. 📚✨
+
+### Ogni gruppo di studenti dovrà produrre:
+
+1. Package **database** per la connessione al database. 💻🔍
+
+2. Package **dao** con le interfacce delle funzionalità richieste al database. 💻🔍
+
+3. Package **Implementazione PostgresDAO** con le implementazioni dei servizi elencati nelle interfacce DAO.
+
+4. Almeno uno o due diagrammi di sequenza, a scelta, ognuno dei quali mostra una funzionalità fondamentale del sistema, in particolare l'interazione tra oggetti di classi provenienti da diversi package del sistema. 📊🔗
+
+5. L'indirizzo del repository GitHub con l'applicazione completa. 🌐📦
+
+Ulteriori elementi che verranno valutati per qualificare la bontà del sistema saranno:
+
+- la presenza di pochi code smells (rilevata da SonarQube) 👃🔍
+- la presenza di una valida documentazione interna del codice (Javadoc) 📄📝
+
+Tutte le persone del gruppo dovranno svolgere questa attività di gruppo restituendo il link al repository GitHub dove viene caricato il codice (dovrebbe essere lo stesso utilizzato per i compiti precedenti). Uno scheletro del progetto è, ancora una volta, disponibile presso [bbreve/Applicativo](https://github.com/bbreve/Applicativo). 🌐📦
+
+L'attività non ha una scadenza esplicita: quando un gruppo ha terminato e consegnato l'attività, dovrà segnalarla ai docenti, che la valuteranno e fisseranno un appuntamento (anche da remoto) per vedere una demo di come funziona e discutere eventuali problemi. ⏰📅
+
+E' ovviamente necessario implementare un database a supporto del sistema software. Tuttavia, la modellazione e la documentazione dei database non sono necessarie ai fini di questa consegna, in quanto sono necessarie per l'esame di base di dati.
+
+### Obiettivi formativi
+
+- Collegare il database al progetto completato. 🧠💡
+- Disegnare diagrammi di sequenza coerenti con il codice creato 📐📖
+- Mantenere alta la qualità del codice creato. ☕💻
+- Documentare completamente il codice 📝📚
+- Collaborare efficacemente all'interno di un team per completare un progetto. 🤝👥
+- Scoprire come utilizzare GitHub per il controllo delle versioni e la gestione dei progetti. 📊🔧
