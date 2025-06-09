@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Team.
+ */
 public class Team {
     private int id;
     private Hackathon hackathon;
@@ -13,6 +16,15 @@ public class Team {
     private List<Voto> voti = new ArrayList<>();
     private List<Progresso> progressi = new ArrayList<>();
 
+    /**
+     * Instantiates a new Team.
+     *
+     * @param id           the id
+     * @param hackathon    the hackathon
+     * @param nome         the nome
+     * @param fondatore    the fondatore
+     * @param partecipanti the partecipanti
+     */
     public Team(int id, Hackathon hackathon, String nome, Utente fondatore, List<Partecipante> partecipanti) {
         this.id = id;
         this.hackathon = hackathon;
@@ -26,6 +38,11 @@ public class Team {
         hackathon.aggiungiTeam(this);
     }
 
+    /**
+     * Aggiungi membro.
+     *
+     * @param utente the utente
+     */
     public void aggiungiMembro(Partecipante utente) {
         if (utente.equals(fondatore)) {
             System.out.println(utente.getNome() + " è già fondatore di un altro team, non può essere aggiunto come membro.");
@@ -40,38 +57,83 @@ public class Team {
         }
     }
 
+    /**
+     * Puo accettare boolean.
+     *
+     * @return the boolean
+     */
     public boolean puoAccettare() {
         return membri.size() < hackathon.getMaxPersoneInUnTeam();
     }
 
+    /**
+     * Aggiungi progresso.
+     *
+     * @param p the p
+     */
     public void aggiungiProgresso(Progresso p) {
         progressi.add(p);
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets nome.
+     *
+     * @return the nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Gets hackathon.
+     *
+     * @return the hackathon
+     */
     public Hackathon getHackathon() {
         return hackathon;
     }
 
+    /**
+     * Gets numero membri.
+     *
+     * @return the numero membri
+     */
     public int getNumeroMembri() {
         return membri.size();
     }
 
+    /**
+     * Gets membri.
+     *
+     * @return the membri
+     */
     public List<Utente> getMembri() {
         return Collections.unmodifiableList(membri);
     }
 
+    /**
+     * Gets voti.
+     *
+     * @return the voti
+     */
     public List<Voto> getVoti() {
         return voti;
     }
 
+    /**
+     * Gets progressi.
+     *
+     * @return the progressi
+     */
     public List<Progresso> getProgressi() {
         return Collections.unmodifiableList(progressi);
     }

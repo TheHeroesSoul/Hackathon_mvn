@@ -1,8 +1,25 @@
 package main.java.model;
 
+/**
+ * The type Invito.
+ */
 public class Invito {
+    /**
+     * The enum Stato richiesta.
+     */
     public enum StatoRichiesta {
-        PENDING, ACCEPTED, DECLINED
+        /**
+         * Pending stato richiesta.
+         */
+        PENDING,
+        /**
+         * Accepted stato richiesta.
+         */
+        ACCEPTED,
+        /**
+         * Declined stato richiesta.
+         */
+        DECLINED
     }
 
     private Partecipante mittente;
@@ -11,6 +28,14 @@ public class Invito {
     private String messaggio;
     private StatoRichiesta stato;
 
+    /**
+     * Instantiates a new Invito.
+     *
+     * @param mittente     the mittente
+     * @param destinatario the destinatario
+     * @param team         the team
+     * @param messaggio    the messaggio
+     */
     public Invito(Partecipante mittente, Partecipante destinatario, Team team, String messaggio) {
         this.mittente = mittente;
         this.destinatario = destinatario;
@@ -19,6 +44,9 @@ public class Invito {
         this.stato = StatoRichiesta.PENDING;
     }
 
+    /**
+     * Accetta.
+     */
     public void accetta() {
         if (team.getNumeroMembri() < team.getHackathon().getMaxPersoneInUnTeam()) {
             team.aggiungiMembro(destinatario);
@@ -29,19 +57,37 @@ public class Invito {
         }
     }
 
+    /**
+     * Rifiuta.
+     */
     public void rifiuta() {
         stato = StatoRichiesta.DECLINED;
         System.out.println(destinatario.getNome() + " ha rifiutato l'invito.");
     }
 
+    /**
+     * Gets stato.
+     *
+     * @return the stato
+     */
     public StatoRichiesta getStato() {
         return stato;
     }
 
+    /**
+     * Sets stato.
+     *
+     * @param stato the stato
+     */
     public void setStato(StatoRichiesta stato) {
         this.stato = stato;
     }
 
+    /**
+     * Gets team.
+     *
+     * @return the team
+     */
     public Team getTeam() {
         return team;
     }
