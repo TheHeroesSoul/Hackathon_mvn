@@ -44,7 +44,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String username = textField1.getText();
                 String password = new String(passwordField1.getPassword());
-                controller.login(username);
+                controller.login(username,password);
             }
         });
     }
