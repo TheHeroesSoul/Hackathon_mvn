@@ -1,7 +1,6 @@
-package dao;
+package main.java.dao;
 
 public interface EsempioDAO {
-    	public EsempioImplementazionePostgresDAO();
-
+    	public void esempioImplementazionePostgresDAO();
 
 }

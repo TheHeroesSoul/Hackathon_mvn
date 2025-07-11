@@ -62,6 +62,15 @@ public class Utente {
         this.password = password;
     }
 
+    public Utente(int id, String username,String email, String nome, String cognome) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.isRegistrato = false;
+    }
+
     /**
      * Registra.
      */

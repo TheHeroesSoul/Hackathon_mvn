@@ -11,7 +11,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        Organizzatore organizzatore = new Organizzatore(1, "GiovaTheFrog", "Giovanni.Rana@outlook.com", "Giovanni", "Rana","123");
+        Organizzatore organizzatore = new Organizzatore(1, "GiovaTheFrog", "Giovanni.Rana@outlook.com", "Giovanni", "Rana");
 
         Hackathon hackathon = organizzatore.creaHackathon(
                 1,

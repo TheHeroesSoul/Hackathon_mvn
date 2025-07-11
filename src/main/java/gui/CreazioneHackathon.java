@@ -16,6 +16,7 @@ public class CreazioneHackathon extends JDialog {
     private JButton invitaGiudiceButton;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JPanel contentPane;
 
     public CreazioneHackathon(Utente utente) {
         setTitle("Creazione Hackathon");
