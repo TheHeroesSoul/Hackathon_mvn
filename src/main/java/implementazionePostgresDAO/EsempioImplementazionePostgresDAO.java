@@ -1,12 +1,9 @@
 package main.java.implementazionePostgresDAO;
-
-import Database.ConnessioneDatabase;
 import main.java.dao.EsempioDAO;
+import main.java.database.ConnessioneDatabase;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class EsempioImplementazionePostgresDAO implements EsempioDAO {
 
