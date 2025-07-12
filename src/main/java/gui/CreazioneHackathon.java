@@ -1,7 +1,9 @@
 package main.java.gui;
 
 import main.java.model.Utente;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 
 public class CreazioneHackathon extends JDialog {
@@ -117,6 +119,22 @@ public class CreazioneHackathon extends JDialog {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
+
+        // Controllo che i campi numerici siano effettivamente numeri interi positivi
+        try {
+            int maxIscritti = Integer.parseInt(maxIscrittiField.getText().trim());
+            int maxComponenti = Integer.parseInt(maxComponentiField.getText().trim());
+            if (maxIscritti <= 0 || maxComponenti <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Max Iscritti e Max Componenti Team devono essere numeri interi positivi.",
+                    "Valore non valido",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         if (!dataInizioField.getText().matches(datePattern)) {
             JOptionPane.showMessageDialog(this,
                     "La Data Inizio deve essere nel formato dd/MM/yyyy",
@@ -136,6 +154,24 @@ public class CreazioneHackathon extends JDialog {
                     "La Data Inizio Iscrizioni deve essere nel formato dd/MM/yyyy",
                     "Formato data non valido",
                     JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date dataInizio = sdf.parse(dataInizioField.getText());
+            Date dataFine = sdf.parse(dataFineField.getText());
+            if (!dataInizio.before(dataFine)) {
+                JOptionPane.showMessageDialog(this,
+                        "La Data Inizio deve essere precedente alla Data Fine",
+                        "Formato data non valido",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Errore nel parsing delle date.",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 

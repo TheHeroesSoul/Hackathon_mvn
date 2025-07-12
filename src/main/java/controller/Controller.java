@@ -1,4 +1,7 @@
 package main.java.controller;
+import main.java.model.Hackathon;
+import java.util.ArrayList;
+import java.util.List;
 
 import main.java.gui.Login;
 import main.java.gui.Home;
@@ -13,6 +16,15 @@ public class Controller {
 
     private Login loginView;
     private Utente authenticatedUser;
+    private List<Hackathon> hackathonList = new ArrayList<>();
+
+    public void aggiungiHackathon(Hackathon h) {
+        hackathonList.add(h);
+    }
+
+    public List<Hackathon> getHackathonList() {
+        return hackathonList;
+    }
 
     public Controller() {
         this.loginView = new Login(this);
