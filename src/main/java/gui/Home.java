@@ -1,5 +1,7 @@
 package main.java.gui;
 
+import main.java.controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,9 +9,10 @@ public class Home {
     private JButton logoutButton;
     private JList list1;
     private JButton creaHackathonButton;
+    private JFrame frame;
 
-    public Home() {
-        JFrame frame = new JFrame("Home");
+    public Home(Controller controller) {
+        frame = new JFrame("Home");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
 
@@ -29,6 +32,13 @@ public class Home {
 
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
-    }
 
+        logoutButton.addActionListener(e -> {
+            frame.dispose();
+            controller.showLogin();
+        });
+        creaHackathonButton.addActionListener(e -> {}
+            frame.dispose();
+            new CreazioneHackathon();
+        });
 }
