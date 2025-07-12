@@ -1,4 +1,3 @@
-// src/main/java/controller/Controller.java
 package main.java.controller;
 
 import main.java.gui.Login;
