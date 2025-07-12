@@ -37,6 +37,10 @@ public class Controller {
         }
     }
 
+    public Utente getAuthenticatedUser() {
+        return authenticatedUser;
+    }
+
     public void showLogin() {
         this.loginView = new Login(this);
     }

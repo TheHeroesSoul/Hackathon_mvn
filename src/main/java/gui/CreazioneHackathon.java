@@ -41,13 +41,13 @@ public class CreazioneHackathon extends JDialog {
 
         contentPane.add(Box.createVerticalStrut(10));
 
-        contentPane.add(new JLabel("Data Inizio:"));
+        contentPane.add(new JLabel("Data Inizio (dd/MM/yyyy):"));
         dataInizioField = new JTextField();
         contentPane.add(dataInizioField);
 
         contentPane.add(Box.createVerticalStrut(10));
 
-        contentPane.add(new JLabel("Data Fine:"));
+        contentPane.add(new JLabel("Data Fine (dd/MM/yyyy):"));
         dataFineField = new JTextField();
         contentPane.add(dataFineField);
 
@@ -65,7 +65,7 @@ public class CreazioneHackathon extends JDialog {
 
         contentPane.add(Box.createVerticalStrut(10));
 
-        contentPane.add(new JLabel("Data Inizio Iscrizioni:"));
+        contentPane.add(new JLabel("Data Inizio Iscrizioni (dd/MM/yyyy):"));
         dataInizioIscrizioniField = new JTextField();
         contentPane.add(dataInizioIscrizioniField);
 
@@ -98,6 +98,48 @@ public class CreazioneHackathon extends JDialog {
     }
 
     private void onOK() {
+        StringBuilder missingFields = new StringBuilder();
+        String datePattern = "^\\d{2}/\\d{2}/\\d{4}$";
+
+        if (titoloField.getText().trim().isEmpty()) missingFields.append("- Titolo\n");
+        if (sedeField.getText().trim().isEmpty()) missingFields.append("- Sede\n");
+        if (dataInizioField.getText().trim().isEmpty()) missingFields.append("- Data Inizio\n");
+        if (dataFineField.getText().trim().isEmpty()) missingFields.append("- Data Fine\n");
+        if (maxIscrittiField.getText().trim().isEmpty()) missingFields.append("- Max Iscritti\n");
+        if (maxComponentiField.getText().trim().isEmpty()) missingFields.append("- Max Componenti Team\n");
+        if (dataInizioIscrizioniField.getText().trim().isEmpty()) missingFields.append("- Data Inizio Iscrizioni\n");
+        if (problemaArea.getText().trim().isEmpty()) missingFields.append("- Problema\n");
+
+        if (missingFields.length() > 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Compila tutti i campi. Mancano:\n" + missingFields,
+                    "Campi mancanti",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!dataInizioField.getText().matches(datePattern)) {
+            JOptionPane.showMessageDialog(this,
+                    "La Data Inizio deve essere nel formato dd/MM/yyyy",
+                    "Formato data non valido",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!dataFineField.getText().matches(datePattern)) {
+            JOptionPane.showMessageDialog(this,
+                    "La Data Fine deve essere nel formato dd/MM/yyyy",
+                    "Formato data non valido",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!dataInizioIscrizioniField.getText().matches(datePattern)) {
+            JOptionPane.showMessageDialog(this,
+                    "La Data Inizio Iscrizioni deve essere nel formato dd/MM/yyyy",
+                    "Formato data non valido",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Hackathon creato", "Successo", JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }
 

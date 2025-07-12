@@ -37,5 +37,12 @@ public class Home {
             frame.dispose();
             controller.showLogin();
         });
+
+        creaHackathonButton.addActionListener(e -> {
+
+            main.java.model.Utente utente = controller.getAuthenticatedUser();
+            CreazioneHackathon dialog = new CreazioneHackathon(utente);
+            dialog.setVisible(true);
+        });
     }
 }
