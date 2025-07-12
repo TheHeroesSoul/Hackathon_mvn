@@ -37,8 +37,5 @@ public class Home {
             frame.dispose();
             controller.showLogin();
         });
-        creaHackathonButton.addActionListener(e -> {}
-            frame.dispose();
-            new CreazioneHackathon();
-        });
+    }
 }
