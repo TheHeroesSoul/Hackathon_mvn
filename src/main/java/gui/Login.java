@@ -49,9 +49,4 @@ public class Login extends JFrame {
         });
     }
 
-    public static void main(String[] args) {
-        Controller controller = new Controller();
-        new Login(controller);
-    }
-
 }

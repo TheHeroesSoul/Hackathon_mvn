@@ -28,7 +28,9 @@ public class Controller {
         if (isAuthenticated) {
             authenticatedUser = new Utente(username);
             JOptionPane.showMessageDialog(loginView, "Login effettuato per: " + username, "Successo", JOptionPane.INFORMATION_MESSAGE);
-            loginView.dispose();
+            loginView.dispose(); // Chiude la schermata di login
+            new main.java.gui.Home(); // Apre la schermata Home
+
         } else {
             JOptionPane.showMessageDialog(loginView, "Credenziali non valide!", "Errore", JOptionPane.ERROR_MESSAGE);
         }

@@ -1,6 +1,7 @@
 package main.java.gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Home {
     private JButton logoutButton;
@@ -9,21 +10,25 @@ public class Home {
 
     public Home() {
         JFrame frame = new JFrame("Home");
-        frame.setContentPane(new JPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        frame.setSize(500, 500);
 
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        String[] dati = {"Elemento 1", "Elemento 2", "Elemento 3"};
+        list1 = new JList(dati);
+        mainPanel.add(new JScrollPane(list1), BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
         logoutButton = new JButton("Logout");
         creaHackathonButton = new JButton("Crea Hackathon");
+        buttonPanel.add(logoutButton);
+        buttonPanel.add(creaHackathonButton);
 
-        JPanel panel = (JPanel) frame.getContentPane();
-        panel.add(logoutButton);
-        panel.add(creaHackathonButton);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
+        frame.setContentPane(mainPanel);
+        frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new Home();
-    }
 }
