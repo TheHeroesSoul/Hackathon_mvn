@@ -49,6 +49,7 @@ public class Home {
             main.java.model.Utente utente = controller.getAuthenticatedUser();
             CreazioneHackathon dialog = new CreazioneHackathon(utente, controller);
             dialog.setVisible(true);
+            aggiornaLista(controller.getHackathonList());
         });
     }
     private void aggiornaLista(List<Hackathon> hackathons) {

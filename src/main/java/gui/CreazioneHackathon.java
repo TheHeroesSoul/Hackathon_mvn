@@ -128,7 +128,6 @@ public class CreazioneHackathon extends JDialog {
             return;
         }
 
-        // Controllo che i campi numerici siano effettivamente numeri interi positivi
         try {
             int maxIscritti = Integer.parseInt(maxIscrittiField.getText().trim());
             int maxComponenti = Integer.parseInt(maxComponentiField.getText().trim());
@@ -193,6 +192,7 @@ public class CreazioneHackathon extends JDialog {
                 Integer.parseInt(maxComponentiField.getText().trim()),
                 LocalDate.parse(dataInizioIscrizioniField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         );
+        controller.aggiungiHackathon(h);
 
         JOptionPane.showMessageDialog(this, "Hackathon creato", "Successo", JOptionPane.INFORMATION_MESSAGE);
         dispose();
