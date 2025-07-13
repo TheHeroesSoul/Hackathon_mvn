@@ -98,7 +98,6 @@ public class CreazioneHackathon extends JDialog {
         buttonsPanel.add(buttonCancel);
 
         contentPane.add(buttonsPanel);
-
         buttonCancel.addActionListener(e -> onCancel());
 
         setContentPane(contentPane);

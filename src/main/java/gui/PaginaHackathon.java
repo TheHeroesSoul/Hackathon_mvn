@@ -36,7 +36,6 @@ public class PaginaHackathon extends JDialog {
 
         setContentPane(contentPane);
 
-        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
