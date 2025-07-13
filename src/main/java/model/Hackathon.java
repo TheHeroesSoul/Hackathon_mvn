@@ -203,4 +203,15 @@ public class Hackathon {
     public List<Team> getTeams() {
         return teams;
     }
+
+    @Override
+    public String toString() {
+        return "Titolo: " + titolo +
+                ", Sede: " + sede +
+                ", Inizio: " + dataInizio +
+                ", Fine: " + dataFine +
+                ", Max Iscritti: " + maxIscritti +
+                ", Max per Team: " + maxPersoneInUnTeam +
+                ", Inizio Iscrizioni: " + inizioIscrizioni;
+    }
 }

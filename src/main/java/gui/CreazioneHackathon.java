@@ -6,11 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 
-import main.java.model.Utente;
 import main.java.controller.Controller;
 import main.java.model.Hackathon;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import main.java.model.Giudice;
 
 public class CreazioneHackathon extends JDialog {
     private JTextField titoloField;
@@ -21,7 +23,6 @@ public class CreazioneHackathon extends JDialog {
     private JTextField maxComponentiField;
     private JTextField dataInizioIscrizioniField;
     private JTextArea problemaArea;
-    private JButton invitaGiudiceButton;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JPanel contentPane;
@@ -88,9 +89,6 @@ public class CreazioneHackathon extends JDialog {
 
         contentPane.add(Box.createVerticalStrut(10));
 
-        invitaGiudiceButton = new JButton("Invita Giudice");
-        contentPane.add(invitaGiudiceButton);
-
         contentPane.add(Box.createVerticalStrut(10));
 
         JPanel buttonsPanel = new JPanel();
@@ -106,6 +104,7 @@ public class CreazioneHackathon extends JDialog {
 
         setContentPane(contentPane);
     }
+
 
     private void onOK() {
         StringBuilder missingFields = new StringBuilder();
@@ -202,11 +201,4 @@ public class CreazioneHackathon extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Utente u = new Utente("pippoepluto");
-            CreazioneHackathon dialog = new CreazioneHackathon(u, new Controller());
-            dialog.setVisible(true);
-        });
-    }
 }
