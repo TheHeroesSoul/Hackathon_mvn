@@ -6,6 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
 
+import main.java.model.Utente;
+import main.java.controller.Controller;
+import main.java.model.Hackathon;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class CreazioneHackathon extends JDialog {
     private JTextField titoloField;
     private JTextField sedeField;
@@ -19,13 +25,15 @@ public class CreazioneHackathon extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JPanel contentPane;
+    private Controller controller;
 
-    public CreazioneHackathon(Utente utente) {
+    public CreazioneHackathon(Utente utente, Controller controller) {
         setTitle("Creazione Hackathon");
         setSize(400, 500);
         setLocationRelativeTo(null);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.controller = controller;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
@@ -169,11 +177,22 @@ public class CreazioneHackathon extends JDialog {
             }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this,
-                    "Errore nel parsing delle date.",
+                    "Errore nelle date.",
                     "Errore",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
+
+        Hackathon h = new Hackathon(
+                0,
+                titoloField.getText().trim(),
+                sedeField.getText().trim(),
+                LocalDate.parse(dataInizioField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                LocalDate.parse(dataFineField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                Integer.parseInt(maxIscrittiField.getText().trim()),
+                Integer.parseInt(maxComponentiField.getText().trim()),
+                LocalDate.parse(dataInizioIscrizioniField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        );
 
         JOptionPane.showMessageDialog(this, "Hackathon creato", "Successo", JOptionPane.INFORMATION_MESSAGE);
         dispose();
@@ -186,7 +205,7 @@ public class CreazioneHackathon extends JDialog {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Utente u = new Utente("pippoepluto");
-            CreazioneHackathon dialog = new CreazioneHackathon(u);
+            CreazioneHackathon dialog = new CreazioneHackathon(u, new Controller());
             dialog.setVisible(true);
         });
     }

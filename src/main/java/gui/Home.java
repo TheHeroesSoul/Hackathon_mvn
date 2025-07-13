@@ -1,15 +1,20 @@
 package main.java.gui;
 
 import main.java.controller.Controller;
+import main.java.model.Hackathon;
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Home {
     private JButton logoutButton;
-    private JList list1;
+    private JList<Hackathon> list1;
     private JButton creaHackathonButton;
     private JFrame frame;
+    private DefaultListModel<Hackathon> listModel;
 
     public Home(Controller controller) {
         frame = new JFrame("Home");
@@ -18,8 +23,9 @@ public class Home {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        String[] dati = {"Elemento 1", "Elemento 2", "Elemento 3"};
-        list1 = new JList(dati);
+        listModel = new DefaultListModel<>();
+        aggiornaLista(controller.getHackathonList());
+        list1 = new JList<>(listModel);
         mainPanel.add(new JScrollPane(list1), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
@@ -41,8 +47,14 @@ public class Home {
         creaHackathonButton.addActionListener(e -> {
 
             main.java.model.Utente utente = controller.getAuthenticatedUser();
-            CreazioneHackathon dialog = new CreazioneHackathon(utente);
+            CreazioneHackathon dialog = new CreazioneHackathon(utente, controller);
             dialog.setVisible(true);
         });
+    }
+    private void aggiornaLista(List<Hackathon> hackathons) {
+        listModel.clear();
+        for (Hackathon h : hackathons) {
+            listModel.addElement(h);
+        }
     }
 }
