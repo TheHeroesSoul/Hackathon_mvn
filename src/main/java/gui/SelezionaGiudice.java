@@ -7,44 +7,42 @@ import main.java.model.Giudice;
 import main.java.model.Hackathon;
 
 public class SelezionaGiudice extends JDialog {
-    private JButton cancellaButton;
+    private Hackathon hackathon;
+    private List<Giudice> giudiciDisponibili;
+    private JList<Giudice> listaGiudici;
     private JButton confermaButton;
-    private JList<Giudice> list1;
-    private JPanel panel1;
+    private JList list1;
     private JTextField textField1;
     private JButton cercaButton;
-    private Hackathon hackathon;
+    private JButton cancellaButton;
+    private JPanel panel1;
 
-
-    public SelezionaGiudice(CreazioneHackathon parent, Hackathon hackathon, List<Giudice> giudiciDisponibili) {
-        super(parent, "Seleziona Giudici", true); // Modale
+    public SelezionaGiudice(java.awt.Window parent, Hackathon hackathon, List<Giudice> giudiciDisponibili) {
+        super(parent, "Seleziona Giudice", ModalityType.APPLICATION_MODAL);
         this.hackathon = hackathon;
+        this.giudiciDisponibili = giudiciDisponibili;
 
-        JPanel panel = new JPanel(new BorderLayout());
-        list1 = new JList<>(giudiciDisponibili.toArray(new Giudice[0]));
-        list1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        panel.add(new JScrollPane(list1), BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel();
+        listaGiudici = new JList<>(giudiciDisponibili.toArray(new Giudice[0]));
+        listaGiudici.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         confermaButton = new JButton("Conferma");
-        cancellaButton = new JButton("Cancella");
-        buttonPanel.add(confermaButton);
-        buttonPanel.add(cancellaButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
 
         confermaButton.addActionListener(e -> {
-            List<Giudice> selezionati = list1.getSelectedValuesList();
-            for (Giudice g : selezionati) {
-                hackathon.aggiungiGiudice(g);
+            List<Giudice> selezionati = listaGiudici.getSelectedValuesList();
+            if (!selezionati.isEmpty()) {
+                hackathon.setGiudici(selezionati); // Implementa questo metodo in Hackathon
+                JOptionPane.showMessageDialog(this, "Giudici selezionati: " + selezionati.size());
+                dispose();
             }
-            dispose();
         });
 
-        cancellaButton.addActionListener(e -> dispose());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(new JLabel("Seleziona un giudice:"));
+        panel.add(new JScrollPane(listaGiudici));
+        panel.add(confermaButton);
 
         setContentPane(panel);
-        setSize(300, 400);
+        setSize(300, 300);
         setLocationRelativeTo(parent);
     }
-
 }

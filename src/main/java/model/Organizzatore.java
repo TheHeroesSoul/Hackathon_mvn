@@ -36,6 +36,7 @@ package main.java.model;
          */
         public Hackathon creaHackathon(int id, String titolo, String sede, LocalDate dataInizio, LocalDate dataFine,
                                        int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni) {
-            return new Hackathon(id, titolo, sede, dataInizio, dataFine, maxIscritti, maxPersoneInUnTeam, inizioIscrizioni);
+            return new Hackathon(id, titolo, sede, dataInizio, dataFine, maxIscritti, maxPersoneInUnTeam, inizioIscrizioni,
+                                 this.getUsername());
         }
     }

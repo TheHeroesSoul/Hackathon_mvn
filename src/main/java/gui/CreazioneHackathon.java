@@ -99,103 +99,27 @@ public class CreazioneHackathon extends JDialog {
 
         contentPane.add(buttonsPanel);
 
-        buttonOK.addActionListener(e -> onOK());
         buttonCancel.addActionListener(e -> onCancel());
 
         setContentPane(contentPane);
+
+        buttonOK.addActionListener(e -> {
+            boolean creato = controller.creaHackathonDaForm(
+                    titoloField.getText(),
+                    sedeField.getText(),
+                    dataInizioField.getText(),
+                    dataFineField.getText(),
+                    maxIscrittiField.getText(),
+                    maxComponentiField.getText(),
+                    dataInizioIscrizioniField.getText(),
+                    problemaArea.getText(),
+                    this
+            );
+            if (creato) dispose();
+        });
     }
 
 
-    private void onOK() {
-        StringBuilder missingFields = new StringBuilder();
-        String datePattern = "^\\d{2}/\\d{2}/\\d{4}$";
-
-        if (titoloField.getText().trim().isEmpty()) missingFields.append("- Titolo\n");
-        if (sedeField.getText().trim().isEmpty()) missingFields.append("- Sede\n");
-        if (dataInizioField.getText().trim().isEmpty()) missingFields.append("- Data Inizio\n");
-        if (dataFineField.getText().trim().isEmpty()) missingFields.append("- Data Fine\n");
-        if (maxIscrittiField.getText().trim().isEmpty()) missingFields.append("- Max Iscritti\n");
-        if (maxComponentiField.getText().trim().isEmpty()) missingFields.append("- Max Componenti Team\n");
-        if (dataInizioIscrizioniField.getText().trim().isEmpty()) missingFields.append("- Data Inizio Iscrizioni\n");
-        if (problemaArea.getText().trim().isEmpty()) missingFields.append("- Problema\n");
-
-        if (missingFields.length() > 0) {
-            JOptionPane.showMessageDialog(this,
-                    "Compila tutti i campi. Mancano:\n" + missingFields,
-                    "Campi mancanti",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            int maxIscritti = Integer.parseInt(maxIscrittiField.getText().trim());
-            int maxComponenti = Integer.parseInt(maxComponentiField.getText().trim());
-            if (maxIscritti <= 0 || maxComponenti <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Max Iscritti e Max Componenti Team devono essere numeri interi positivi.",
-                    "Valore non valido",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!dataInizioField.getText().matches(datePattern)) {
-            JOptionPane.showMessageDialog(this,
-                    "La Data Inizio deve essere nel formato dd/MM/yyyy",
-                    "Formato data non valido",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (!dataFineField.getText().matches(datePattern)) {
-            JOptionPane.showMessageDialog(this,
-                    "La Data Fine deve essere nel formato dd/MM/yyyy",
-                    "Formato data non valido",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (!dataInizioIscrizioniField.getText().matches(datePattern)) {
-            JOptionPane.showMessageDialog(this,
-                    "La Data Inizio Iscrizioni deve essere nel formato dd/MM/yyyy",
-                    "Formato data non valido",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date dataInizio = sdf.parse(dataInizioField.getText());
-            Date dataFine = sdf.parse(dataFineField.getText());
-            if (!dataInizio.before(dataFine)) {
-                JOptionPane.showMessageDialog(this,
-                        "La Data Inizio deve essere precedente alla Data Fine",
-                        "Formato data non valido",
-                        JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Errore nelle date.",
-                    "Errore",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Hackathon h = new Hackathon(
-                0,
-                titoloField.getText().trim(),
-                sedeField.getText().trim(),
-                LocalDate.parse(dataInizioField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                LocalDate.parse(dataFineField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                Integer.parseInt(maxIscrittiField.getText().trim()),
-                Integer.parseInt(maxComponentiField.getText().trim()),
-                LocalDate.parse(dataInizioIscrizioniField.getText().trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        );
-        controller.aggiungiHackathon(h);
-
-        JOptionPane.showMessageDialog(this, "Hackathon creato", "Successo", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-    }
 
     private void onCancel() {
         dispose();

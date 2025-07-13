@@ -33,9 +33,10 @@ public class Hackathon {
      * @param maxIscritti        numero massimo di partecipanti
      * @param maxPersoneInUnTeam massimo membri per team
      * @param inizioIscrizioni   data di apertura iscrizioni
+     * @param username
      */
     public Hackathon(int id, String titolo, String sede, LocalDate dataInizio, LocalDate dataFine,
-                     int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni) {
+                     int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String username) {
         this.id = id;
         this.titolo = titolo;
         this.sede = sede;
@@ -213,5 +214,8 @@ public class Hackathon {
                 ", Max Iscritti: " + maxIscritti +
                 ", Max per Team: " + maxPersoneInUnTeam +
                 ", Inizio Iscrizioni: " + inizioIscrizioni;
+    }
+
+    public void setGiudici(List<Giudice> selezionati) {
     }
 }
