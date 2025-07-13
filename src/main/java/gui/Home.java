@@ -51,11 +51,33 @@ public class Home {
             dialog.setVisible(true);
             aggiornaLista(controller.getHackathonList());
         });
+        list1.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                Hackathon selezionato = list1.getSelectedValue();
+                if (selezionato != null) {
+                    controller.mostraPaginaHackathon(selezionato);
+                }
+            }
+        });
+
     }
+
+    public void nascondi() {
+        frame.setVisible(false);
+    }
+    public void mostra() {
+        frame.setVisible(true);
+    }
+    public JFrame getFrame() {
+        return frame;
+    }
+
     private void aggiornaLista(List<Hackathon> hackathons) {
         listModel.clear();
         for (Hackathon h : hackathons) {
             listModel.addElement(h);
         }
     }
+
+
 }

@@ -19,7 +19,11 @@ import main.java.model.Utente;
 
 import javax.swing.*;
 
+
+
 public class Controller {
+
+    private Home homeView;
     private static final String VALID_USERNAME = "admin";
     private static final String VALID_PASSWORD = "1234";
 
@@ -56,7 +60,7 @@ public class Controller {
             authenticatedUser = new Utente(username);
             JOptionPane.showMessageDialog(loginView, "Login effettuato per: " + username, "Successo", JOptionPane.INFORMATION_MESSAGE);
             loginView.dispose();
-            new Home(this);
+            homeView = new Home(this);
         } else {
             JOptionPane.showMessageDialog(loginView, "Credenziali non valide!", "Errore", JOptionPane.ERROR_MESSAGE);
         }
@@ -143,6 +147,7 @@ public class Controller {
                 Integer.parseInt(maxComponenti.trim()),
                 LocalDate.parse(dataInizioIscrizioni.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 getAuthenticatedUser().getUsername()
+
         );
         aggiungiHackathon(h);
 
@@ -166,6 +171,13 @@ public class Controller {
 
     public void showLogin() {
         this.loginView = new Login(this);
+    }
+
+    public void mostraPaginaHackathon(Hackathon hackathon) {
+        if (homeView != null) {
+            homeView.nascondi();
+            new main.java.gui.PaginaHackathon(homeView.getFrame(), hackathon, this, homeView);
+        }
     }
 
     private boolean authenticateUser(String username, String password) {

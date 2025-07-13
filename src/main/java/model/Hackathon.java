@@ -21,6 +21,8 @@ public class Hackathon {
     private List<Utente> partecipanti = new ArrayList<>();
     private List<Team> teams = new ArrayList<>();
     private boolean iscrizioniAperte;
+    private String creatore;
+    private String problema;
 
     /**
      * Crea un nuovo oggetto Hackathon.
@@ -45,6 +47,7 @@ public class Hackathon {
         this.maxIscritti = maxIscritti;
         this.maxPersoneInUnTeam = maxPersoneInUnTeam;
         this.inizioIscrizioni = inizioIscrizioni;
+        this.creatore = creatore;
         this.iscrizioniAperte = false;
     }
 
@@ -150,6 +153,9 @@ public class Hackathon {
         return punteggioTotale;
     }
 
+    public String getSede() { return sede; }
+    public String getCreatore() { return creatore; }
+    public String getProblema() { return problema; }
 
     /**
      * Gets titolo.
