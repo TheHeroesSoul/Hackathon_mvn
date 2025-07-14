@@ -24,19 +24,20 @@ package main.java.model;
         /**
          * Metodo per creare un nuovo hackathon.
          *
-         * @param id                    L'ID univoco dell'hackathon.
-         * @param titolo                Il titolo dell'hackathon.
-         * @param sede                  La sede in cui si terrà l'hackathon.
-         * @param dataInizio            La data di inizio dell'hackathon.
-         * @param dataFine              La data di fine dell'hackathon.
-         * @param maxIscritti           Il numero massimo di partecipanti all'hackathon.
-         * @param maxPersoneInUnTeam    Il numero massimo di persone per team.
-         * @param inizioIscrizioni      La data di inizio delle iscrizioni all'hackathon.
-         * @return                      Un oggetto Hackathon rappresentante l'hackathon creato.
+         * @param id                 L'ID univoco dell'hackathon.
+         * @param titolo             Il titolo dell'hackathon.
+         * @param sede               La sede in cui si terrà l'hackathon.
+         * @param dataInizio         La data di inizio dell'hackathon.
+         * @param dataFine           La data di fine dell'hackathon.
+         * @param maxIscritti        Il numero massimo di partecipanti all'hackathon.
+         * @param maxPersoneInUnTeam Il numero massimo di persone per team.
+         * @param inizioIscrizioni   La data di inizio delle iscrizioni all'hackathon.
+         * @param problema
+         * @return Un oggetto Hackathon rappresentante l'hackathon creato.
          */
         public Hackathon creaHackathon(int id, String titolo, String sede, LocalDate dataInizio, LocalDate dataFine,
-                                       int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni) {
+                                       int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String problema) {
             return new Hackathon(id, titolo, sede, dataInizio, dataFine, maxIscritti, maxPersoneInUnTeam, inizioIscrizioni,
-                                 this.getUsername());
+                                 this.getUsername(), problema.trim());
         }
     }

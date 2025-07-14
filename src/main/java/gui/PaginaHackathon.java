@@ -12,29 +12,26 @@ public class PaginaHackathon extends JDialog {
     private String creatoreUsername;
     private JPanel panel1;
     private JList utentiList;
-    private JTextPane problemaTextPane;
     private JTable classificaTable;
     private JButton tornaDietroButton;
     private JButton creaDocumentoButton;
     private JList Utenti;
     private JTable Classifica;
     private JList list1;
+    private JButton problemaButton;
+
+    private Hackathon hackathon;
 
     public PaginaHackathon(Window parent, Hackathon hackathon, Controller controller, Home homeView) {
         super(parent, "Dettagli Hackathon: " + hackathon.getTitolo(), ModalityType.APPLICATION_MODAL);
         this.creatoreUsername = hackathon.getCreatore();
+        this.hackathon = hackathon;
 
-        setSize(400, 300);
+        setSize(500, 400);
         setLocationRelativeTo(parent);
+        setContentPane(panel1);
 
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-        contentPane.add(new JLabel("Titolo: " + hackathon.getTitolo()));
-        contentPane.add(new JLabel("Sede: " + hackathon.getSede()));
-        contentPane.add(new JLabel("Creatore: " + hackathon.getCreatore()));
-        contentPane.add(new JLabel("Problema: " + hackathon.getProblema()));
-
-        setContentPane(contentPane);
+        setupActionListeners(controller, homeView);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -48,6 +45,40 @@ public class PaginaHackathon extends JDialog {
         });
 
         setVisible(true);
+    }
+
+    private void setupActionListeners(Controller controller, Home homeView) {
+        // Action listener per il bottone "Problema"
+        problemaButton.addActionListener(e -> {
+            String problema = hackathon.getProblema();
+
+            // Debug: stampa per verificare che il problema sia presente
+            System.out.println("Problema dell'hackathon: " + problema);
+
+            if (problema == null || problema.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "Nessun problema definito per questo hackathon.",
+                        "Informazione",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Crea e mostra la finestra Problema
+            Problema dialog = new Problema(problema);
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+        });
+
+        // Action listener per il bottone "Torna dietro"
+        tornaDietroButton.addActionListener(e -> {
+            dispose();
+            if (homeView != null) homeView.mostra();
+        });
+
+        creaDocumentoButton.addActionListener(e -> {
+            controller.mostraDocumentiDialog(this, hackathon);
+        });
+
     }
 
     public String getCreatoreUsername() {

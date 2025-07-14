@@ -36,9 +36,10 @@ public class Hackathon {
      * @param maxPersoneInUnTeam massimo membri per team
      * @param inizioIscrizioni   data di apertura iscrizioni
      * @param username
+     * @param trim
      */
     public Hackathon(int id, String titolo, String sede, LocalDate dataInizio, LocalDate dataFine,
-                     int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String username) {
+                     int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String username, String trim) {
         this.id = id;
         this.titolo = titolo;
         this.sede = sede;
@@ -49,6 +50,7 @@ public class Hackathon {
         this.inizioIscrizioni = inizioIscrizioni;
         this.creatore = creatore;
         this.iscrizioniAperte = false;
+        this.problema = trim;
     }
 
     /**
@@ -211,15 +213,39 @@ public class Hackathon {
         return teams;
     }
 
+    public String getProblema(String problema) {
+        return problema;
+    }
+
+    public void setProblema(String problema) {
+        this.problema = problema;
+    }
+
     @Override
     public String toString() {
-        return "Titolo: " + titolo +
-                ", Sede: " + sede +
-                ", Inizio: " + dataInizio +
-                ", Fine: " + dataFine +
-                ", Max Iscritti: " + maxIscritti +
-                ", Max per Team: " + maxPersoneInUnTeam +
-                ", Inizio Iscrizioni: " + inizioIscrizioni;
+        return "Hackathon{" +
+                "id=" + id +
+                ", titolo='" + titolo + '\'' +
+                ", sede='" + sede + '\'' +
+                ", dataInizio=" + dataInizio +
+                ", dataFine=" + dataFine +
+                ", maxIscritti=" + maxIscritti +
+                ", maxComponenti=" + maxPersoneInUnTeam +
+                ", dataInizioIscrizioni=" + inizioIscrizioni +
+                ", creatore='" + creatore + '\'' +
+                ", problema='" + problema + '\'' +
+                '}';
+    }
+
+    // Aggiungi in Hackathon.java
+    private List<String> documenti = new ArrayList<>();
+
+    public void aggiungiDocumento(String nomeDocumento) {
+        documenti.add(nomeDocumento);
+    }
+
+    public List<String> getDocumenti() {
+        return documenti;
     }
 
     public void setGiudici(List<Giudice> selezionati) {

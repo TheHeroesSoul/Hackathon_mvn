@@ -1,9 +1,9 @@
 package main.java.controller;
-import main.java.gui.CreazioneHackathon;
-import main.java.gui.SelezionaGiudice;
+import main.java.gui.*;
 import main.java.model.Giudice;
 import main.java.model.Hackathon;
 
+import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import main.java.gui.Login;
-import main.java.gui.Home;
 import main.java.model.Utente;
 
 
@@ -45,6 +43,7 @@ public class Controller {
         giudici.add(new Giudice(1, "giudice1", "giudice1@email.com", "Mario", "Rossi", "pass1"));
         giudici.add(new Giudice(2, "giudice2", "giudice2@email.com", "Luigi", "Verdi", "pass2"));
         giudici.add(new Giudice(3, "giudice3", "giudice3@email.com", "Anna", "Bianchi", "pass3"));
+
     }
 
     public void login(String username, String password) {
@@ -66,6 +65,7 @@ public class Controller {
         }
     }
 
+    // Modifica nel metodo creaHackathonDaForm del Controller
     public boolean creaHackathonDaForm(
             String titolo,
             String sede,
@@ -137,6 +137,7 @@ public class Controller {
             return false;
         }
 
+        // IMPORTANTE: Passa il problema al costruttore di Hackathon
         Hackathon h = new Hackathon(
                 0,
                 titolo.trim(),
@@ -146,9 +147,12 @@ public class Controller {
                 Integer.parseInt(maxIscritti.trim()),
                 Integer.parseInt(maxComponenti.trim()),
                 LocalDate.parse(dataInizioIscrizioni.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                getAuthenticatedUser().getUsername()
-
+                getAuthenticatedUser().getUsername(),
+                problema.trim()
         );
+
+
+
         aggiungiHackathon(h);
 
         List<Giudice> giudiciDisponibili = getGiudiciDisponibili();
@@ -156,9 +160,13 @@ public class Controller {
         SelezionaGiudice selezionaGiudiceDialog = new SelezionaGiudice(parent, h, giudiciDisponibili);
         selezionaGiudiceDialog.setVisible(true);
 
-        JOptionPane.showMessageDialog(parent, "Hackathon creato", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(parent, "Hackathon creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
         return true;
+
+
     }
+
+
     private List<Giudice> giudici = new ArrayList<>();
 
     public List<Giudice> getGiudiciDisponibili() {
@@ -176,12 +184,17 @@ public class Controller {
     public void mostraPaginaHackathon(Hackathon hackathon) {
         if (homeView != null) {
             homeView.nascondi();
-            new main.java.gui.PaginaHackathon(homeView.getFrame(), hackathon, this, homeView);
+            new PaginaHackathon(homeView.getFrame(), hackathon, this, homeView);
+
         }
     }
 
     private boolean authenticateUser(String username, String password) {
         return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
+    }
+
+    public void mostraDocumentiDialog(Window parent, Hackathon hackathon) {
+        new Documenti(parent, hackathon, this).setVisible(true);
     }
 
     public static void main(String[] args) {
