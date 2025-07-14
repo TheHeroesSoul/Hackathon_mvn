@@ -179,7 +179,10 @@ public class Utente {
 
     @Override
     public String toString() {
-        return "Utente{id=" + id + ", username='" + username + "', email='" + email + "', nome='" + nome + "', cognome='" + cognome + "'}";
+        return username + " - " + nome + " " + cognome;
     }
+
+
+
 
 }

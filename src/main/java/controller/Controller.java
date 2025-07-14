@@ -37,12 +37,15 @@ public class Controller {
         return hackathonList;
     }
 
-    public Controller() {
-        this.loginView = new Login(this);
+    private List<Utente> tuttiUtenti = new ArrayList<>();
 
-        giudici.add(new Giudice(1, "giudice1", "giudice1@email.com", "Mario", "Rossi", "pass1"));
-        giudici.add(new Giudice(2, "giudice2", "giudice2@email.com", "Luigi", "Verdi", "pass2"));
-        giudici.add(new Giudice(3, "giudice3", "giudice3@email.com", "Anna", "Bianchi", "pass3"));
+    public Controller(boolean isAuthenticated) {
+        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
+
+        tuttiUtenti.add(new Utente(0, "admin", "admin@email.com", "Admin", "Admin", "1234"));
+        tuttiUtenti.add(new Utente(1, "giudice1", "giudice1@email.com", "Mario", "Rossi", "pass1"));
+        tuttiUtenti.add(new Utente(2, "giudice2", "giudice2@email.com", "Luigi", "Verdi", "pass2"));
+        tuttiUtenti.add(new Utente(3, "giudice3", "giudice3@email.com", "Anna", "Bianchi", "pass3"));
 
     }
 
@@ -59,13 +62,17 @@ public class Controller {
             authenticatedUser = new Utente(username);
             JOptionPane.showMessageDialog(loginView, "Login effettuato per: " + username, "Successo", JOptionPane.INFORMATION_MESSAGE);
             loginView.dispose();
-            homeView = new Home(this);
+            homeView = new Home(this, isAuthenticated);
         } else {
             JOptionPane.showMessageDialog(loginView, "Credenziali non valide!", "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Modifica nel metodo creaHackathonDaForm del Controller
+    public List<Utente> getTuttiUtenti() {
+        return tuttiUtenti;
+    }
+
+
     public boolean creaHackathonDaForm(
             String titolo,
             String sede,
@@ -75,7 +82,7 @@ public class Controller {
             String maxComponenti,
             String dataInizioIscrizioni,
             String problema,
-            java.awt.Window parent
+            Window parent
     ) {
 
         StringBuilder missingFields = new StringBuilder();
@@ -137,7 +144,6 @@ public class Controller {
             return false;
         }
 
-        // IMPORTANTE: Passa il problema al costruttore di Hackathon
         Hackathon h = new Hackathon(
                 0,
                 titolo.trim(),
@@ -155,13 +161,16 @@ public class Controller {
 
         aggiungiHackathon(h);
 
-        List<Giudice> giudiciDisponibili = getGiudiciDisponibili();
 
-        SelezionaGiudice selezionaGiudiceDialog = new SelezionaGiudice(parent, h, giudiciDisponibili);
+
+        List<Utente> utentiDisponibili = getTuttiUtenti();
+        SelezionaGiudice selezionaGiudiceDialog = new SelezionaGiudice(parent, h, utentiDisponibili);
         selezionaGiudiceDialog.setVisible(true);
 
         JOptionPane.showMessageDialog(parent, "Hackathon creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
         return true;
+
+
 
 
     }
@@ -177,8 +186,8 @@ public class Controller {
         return authenticatedUser;
     }
 
-    public void showLogin() {
-        this.loginView = new Login(this);
+    public void showLogin(boolean isAuthenticated) {
+        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
     }
 
     public void mostraPaginaHackathon(Hackathon hackathon) {
@@ -198,7 +207,8 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        new Controller();
+        boolean isAuthenticated = false;
+        new Controller(isAuthenticated);
     }
 
 

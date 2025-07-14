@@ -17,7 +17,7 @@ public class Hackathon {
     private int maxPersoneInUnTeam;
     private LocalDate inizioIscrizioni;
     private Problema descrizioneProblema;
-    private List<Giudice> giudici = new ArrayList<>();
+    private List<Utente> giudici = new ArrayList<>();
     private List<Utente> partecipanti = new ArrayList<>();
     private List<Team> teams = new ArrayList<>();
     private boolean iscrizioniAperte;
@@ -187,15 +187,6 @@ public class Hackathon {
     }
 
     /**
-     * Gets giudici.
-     *
-     * @return the giudici
-     */
-    public List<Giudice> getGiudici() {
-        return List.copyOf(giudici);
-    }
-
-    /**
      * Gets partecipanti.
      *
      * @return the partecipanti
@@ -220,6 +211,7 @@ public class Hackathon {
     public void setProblema(String problema) {
         this.problema = problema;
     }
+
 
     @Override
     public String toString() {
@@ -248,6 +240,10 @@ public class Hackathon {
         return documenti;
     }
 
-    public void setGiudici(List<Giudice> selezionati) {
+    public void setGiudici(List<Utente> giudici) {
+        this.giudici = giudici;
+    }
+    protected List<Utente> getGiudici() {
+        return giudici;
     }
 }

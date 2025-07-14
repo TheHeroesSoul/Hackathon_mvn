@@ -5,41 +5,41 @@ import java.awt.*;
 import java.util.List;
 import main.java.model.Giudice;
 import main.java.model.Hackathon;
+import main.java.model.Utente;
 
 public class SelezionaGiudice extends JDialog {
     private Hackathon hackathon;
-    private List<Giudice> giudiciDisponibili;
-    private JList<Giudice> listaGiudici;
-    private JButton confermaButton;
+    private List<Utente> utentiDisponibili;  // Cambiato da Giudice a Utente
+    private JList<Utente> listaUtenti;       // Cambiato da Giudice a Utente
     private JList list1;
+    private JPanel panel1;
     private JTextField textField1;
     private JButton cercaButton;
+    private JButton confermaButton;
     private JButton cancellaButton;
-    private JPanel panel1;
 
-    public SelezionaGiudice(java.awt.Window parent, Hackathon hackathon, List<Giudice> giudiciDisponibili) {
+    public SelezionaGiudice(java.awt.Window parent, Hackathon hackathon, List<Utente> utentiDisponibili) {
         super(parent, "Seleziona Giudice", ModalityType.APPLICATION_MODAL);
         this.hackathon = hackathon;
-        this.giudiciDisponibili = giudiciDisponibili;
+        this.utentiDisponibili = utentiDisponibili;
 
-        listaGiudici = new JList<>(giudiciDisponibili.toArray(new Giudice[0]));
-        listaGiudici.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        confermaButton = new JButton("Conferma");
+        listaUtenti = new JList<>(utentiDisponibili.toArray(new Utente[0]));
+        listaUtenti.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JButton confermaButton = new JButton("Conferma");
 
         confermaButton.addActionListener(e -> {
-            List<Giudice> selezionati = listaGiudici.getSelectedValuesList();
+            List<Utente> selezionati = listaUtenti.getSelectedValuesList();
             if (!selezionati.isEmpty()) {
-                hackathon.setGiudici(selezionati); // Implementa questo metodo in Hackathon
+                hackathon.setGiudici(selezionati); // Ora accetta List<Utente>
                 JOptionPane.showMessageDialog(this, "Giudici selezionati: " + selezionati.size());
                 dispose();
             }
         });
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Seleziona un giudice:"));
-        panel.add(new JScrollPane(listaGiudici));
-        panel.add(confermaButton);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JLabel("Seleziona giudici:"), BorderLayout.NORTH);
+        panel.add(new JScrollPane(listaUtenti), BorderLayout.CENTER);
+        panel.add(confermaButton, BorderLayout.SOUTH);
 
         setContentPane(panel);
         setSize(300, 300);

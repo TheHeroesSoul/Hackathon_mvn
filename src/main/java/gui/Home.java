@@ -6,9 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class Home {
     private JButton logoutButton;
     private JList<Hackathon> list1;
@@ -16,7 +13,7 @@ public class Home {
     private JFrame frame;
     private DefaultListModel<Hackathon> listModel;
 
-    public Home(Controller controller) {
+    public Home(Controller controller, boolean isAuthenticated) {
         frame = new JFrame("Home");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
@@ -41,7 +38,7 @@ public class Home {
 
         logoutButton.addActionListener(e -> {
             frame.dispose();
-            controller.showLogin();
+            controller.showLogin(isAuthenticated);
         });
 
         creaHackathonButton.addActionListener(e -> {
