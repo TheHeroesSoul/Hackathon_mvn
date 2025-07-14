@@ -1,23 +1,17 @@
 package main.java.controller;
-import main.java.gui.*;
-import main.java.model.Giudice;
-import main.java.model.Hackathon;
 
+import main.java.gui.*;
+import main.java.model.*;
+
+import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-
-import main.java.model.Utente;
-
-
-import javax.swing.*;
-
-
+import java.util.stream.Collectors;
 
 public class Controller {
 
@@ -28,6 +22,20 @@ public class Controller {
     private Login loginView;
     private Utente authenticatedUser;
     private List<Hackathon> hackathonList = new ArrayList<>();
+    private List<Utente> tuttiUtenti = new ArrayList<>();
+
+    private Map<Team, List<Integer>> votiPerTeam = new HashMap<>();
+
+    public Controller(boolean isAuthenticated) {
+        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
+
+        tuttiUtenti.add(new Utente(0, "admin", "admin@email.com", "Admin", "Admin", "1234"));
+        tuttiUtenti.add(new Utente(1, "giudice1", "giudice1@email.com", "Mario", "Rossi", "pass1"));
+        tuttiUtenti.add(new Utente(2, "giudice2", "giudice2@email.com", "Luigi", "Verdi", "pass2"));
+        tuttiUtenti.add(new Utente(3, "giudice3", "giudice3@email.com", "Anna", "Bianchi", "pass3"));
+        tuttiUtenti.add(new Utente(4, "partecipante1", "partecipante1@email.com", "Sara", "Neri", "pass4"));
+        tuttiUtenti.add(new Utente(5, "partecipante2", "partecipante2@email.com", "Marco", "Gialli", "pass5"));
+    }
 
     public void aggiungiHackathon(Hackathon h) {
         hackathonList.add(h);
@@ -37,16 +45,8 @@ public class Controller {
         return hackathonList;
     }
 
-    private List<Utente> tuttiUtenti = new ArrayList<>();
-
-    public Controller(boolean isAuthenticated) {
-        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
-
-        tuttiUtenti.add(new Utente(0, "admin", "admin@email.com", "Admin", "Admin", "1234"));
-        tuttiUtenti.add(new Utente(1, "giudice1", "giudice1@email.com", "Mario", "Rossi", "pass1"));
-        tuttiUtenti.add(new Utente(2, "giudice2", "giudice2@email.com", "Luigi", "Verdi", "pass2"));
-        tuttiUtenti.add(new Utente(3, "giudice3", "giudice3@email.com", "Anna", "Bianchi", "pass3"));
-
+    public List<Utente> getTuttiUtenti() {
+        return tuttiUtenti;
     }
 
     public void login(String username, String password) {
@@ -68,10 +68,24 @@ public class Controller {
         }
     }
 
-    public List<Utente> getTuttiUtenti() {
-        return tuttiUtenti;
+    private boolean authenticateUser(String username, String password) {
+        return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
     }
 
+    public Utente getAuthenticatedUser() {
+        return authenticatedUser;
+    }
+
+    public void showLogin(boolean isAuthenticated) {
+        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
+    }
+
+    public void mostraPaginaHackathon(Hackathon hackathon) {
+        if (homeView != null) {
+            homeView.nascondi();
+            new PaginaHackathon(homeView.getFrame(), hackathon, this, homeView);
+        }
+    }
 
     public boolean creaHackathonDaForm(
             String titolo,
@@ -84,7 +98,6 @@ public class Controller {
             String problema,
             Window parent
     ) {
-
         StringBuilder missingFields = new StringBuilder();
         String datePattern = "^\\d{2}/\\d{2}/\\d{4}$";
 
@@ -157,11 +170,7 @@ public class Controller {
                 problema.trim()
         );
 
-
-
         aggiungiHackathon(h);
-
-
 
         List<Utente> utentiDisponibili = getTuttiUtenti();
         SelezionaGiudice selezionaGiudiceDialog = new SelezionaGiudice(parent, h, utentiDisponibili);
@@ -169,47 +178,82 @@ public class Controller {
 
         JOptionPane.showMessageDialog(parent, "Hackathon creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
         return true;
-
-
-
-
     }
 
-
-    private List<Giudice> giudici = new ArrayList<>();
-
-    public List<Giudice> getGiudiciDisponibili() {
-        return giudici;
+    public boolean inviaInvito(Hackathon hackathon, String username) {
+        Utente utente = trovaUtentePerNome(username);
+        if (utente == null) return false;
+        boolean invitato = hackathon.inviaInvitoA(utente);
+        return invitato;
     }
 
-    public Utente getAuthenticatedUser() {
-        return authenticatedUser;
-    }
-
-    public void showLogin(boolean isAuthenticated) {
-        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
-    }
-
-    public void mostraPaginaHackathon(Hackathon hackathon) {
-        if (homeView != null) {
-            homeView.nascondi();
-            new PaginaHackathon(homeView.getFrame(), hackathon, this, homeView);
-
-        }
-    }
-
-    private boolean authenticateUser(String username, String password) {
-        return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
+    private Utente trovaUtentePerNome(String username) {
+        return tuttiUtenti.stream()
+                .filter(u -> u.getUsername().equalsIgnoreCase(username))
+                .findFirst()
+                .orElse(null);
     }
 
     public void mostraDocumentiDialog(Window parent, Hackathon hackathon) {
         new Documenti(parent, hackathon, this).setVisible(true);
     }
 
+    public void registraVoto(Hackathon hackathon, Team team, int voto) throws Exception {
+        if (hackathon == null) throw new Exception("Hackathon nullo");
+        if (team == null) throw new Exception("Team non selezionato");
+        if (!hackathon.getTeams().contains(team)) {
+            throw new Exception("Il team non appartiene a questo hackathon");
+        }
+        if (voto < 1 || voto > 10) {
+            throw new Exception("Il voto deve essere tra 1 e 10");
+        }
+        // Aggiungi voto alla lista per il team
+        votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
+    }
+
+    public List<Team> getClassificaSommaPunteggi(Hackathon hackathon) {
+        if (hackathon == null) return Collections.emptyList();
+
+        return hackathon.getTeams().stream()
+                .sorted((t1, t2) -> Integer.compare(calcolaSommaVoti(t2), calcolaSommaVoti(t1)))
+                .collect(Collectors.toList());
+    }
+
+    public int calcolaSommaVoti(Team team) {
+        List<Integer> voti = votiPerTeam.getOrDefault(team, Collections.emptyList());
+        return voti.stream().mapToInt(Integer::intValue).sum();
+    }
+
+    public List<String> getDocumentiHackathon(Hackathon hackathon) {
+        if (hackathon == null) {
+            return Collections.emptyList();
+        }
+        return hackathon.getDocumenti();
+    }
+
+    public String getDescrizioneProblema(Hackathon hackathon) {
+        if (hackathon == null) {
+            return "";
+        }
+        return hackathon.getProblema();
+    }
+
+    public void aggiungiDocumentoAlHackathon(Hackathon hackathon, String documento) {
+        if (hackathon == null || documento == null || documento.trim().isEmpty()) {
+            return;
+        }
+        hackathon.getDocumenti().add(documento.trim());
+    }
+
+    public List<Team> getTeamsHackathon(Hackathon hackathon) {
+        if (hackathon == null) {
+            return Collections.emptyList();
+        }
+        return hackathon.getTeams();
+    }
+
     public static void main(String[] args) {
         boolean isAuthenticated = false;
         new Controller(isAuthenticated);
     }
-
-
 }

@@ -14,18 +14,15 @@ public class Problema extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        // Imposta il testo del problema nel JTextPane
         textPane1.setText(problema);
-        textPane1.setEditable(false); // Rende il testo non editabile
+        textPane1.setEditable(false);
 
-        // Action listener per il bottone OK
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
 
-        // Gestisce la chiusura della finestra
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -33,7 +30,6 @@ public class Problema extends JDialog {
             }
         });
 
-        // Gestisce la pressione del tasto ESC
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();

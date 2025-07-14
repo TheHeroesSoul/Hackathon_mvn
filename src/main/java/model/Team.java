@@ -137,4 +137,15 @@ public class Team {
     public List<Progresso> getProgressi() {
         return Collections.unmodifiableList(progressi);
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", membri=" + membri.size() +
+                ", voti=" + voti.size() +
+                '}';
+    }
+
 }

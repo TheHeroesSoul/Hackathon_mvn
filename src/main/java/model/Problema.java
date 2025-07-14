@@ -61,4 +61,8 @@ public class Problema {
                 ", hackathon=" + hackathon.getTitolo() +
                 '}';
     }
+
+    public String getTitolo() {
+        return "Problema: " + descrizione;
+    }
 }

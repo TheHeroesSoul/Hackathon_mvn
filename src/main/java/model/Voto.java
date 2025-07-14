@@ -16,6 +16,9 @@ public class Voto {
      * @param valore  the valore
      */
     public Voto(Giudice giudice, Team team, int valore) {
+        if (valore < 1 || valore > 10) {
+            throw new IllegalArgumentException("Il voto deve essere compreso tra 1 e 10.");
+        }
             this.giudice = giudice;
             this.team = team;
             this.valore = valore;

@@ -3,14 +3,13 @@ package main.java.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import main.java.model.Giudice;
 import main.java.model.Hackathon;
 import main.java.model.Utente;
 
 public class SelezionaGiudice extends JDialog {
     private Hackathon hackathon;
-    private List<Utente> utentiDisponibili;  // Cambiato da Giudice a Utente
-    private JList<Utente> listaUtenti;       // Cambiato da Giudice a Utente
+    private List<Utente> utentiDisponibili;
+    private JList<Utente> listaUtenti;
     private JList list1;
     private JPanel panel1;
     private JTextField textField1;

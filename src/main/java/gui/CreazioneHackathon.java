@@ -1,18 +1,9 @@
 package main.java.gui;
 
 import main.java.model.Utente;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.*;
 
 import main.java.controller.Controller;
-import main.java.model.Hackathon;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import main.java.model.Giudice;
 
 public class CreazioneHackathon extends JDialog {
     private JTextField titoloField;
@@ -117,8 +108,6 @@ public class CreazioneHackathon extends JDialog {
             if (creato) dispose();
         });
     }
-
-
 
     private void onCancel() {
         dispose();

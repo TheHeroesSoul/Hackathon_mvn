@@ -20,7 +20,6 @@ public class Documenti extends JDialog {
         setSize(400, 300);
         setLocationRelativeTo(parent);
 
-        // Inizializzazione componenti
         listModel = new DefaultListModel<>();
         documentiList = new JList<>(listModel);
         mainPanel = new JPanel(new BorderLayout());

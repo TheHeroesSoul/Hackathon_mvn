@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Rappresenta un hackathon con informazioni su iscrizioni, partecipanti, giudici e team.
+ * Rappresenta un hackathon con informazioni su iscrizioni, partecipanti, giudici, team e documenti associati.
  */
 public class Hackathon {
+
     private int id;
     private String titolo;
     private String sede;
@@ -22,24 +23,25 @@ public class Hackathon {
     private List<Team> teams = new ArrayList<>();
     private boolean iscrizioniAperte;
     private String creatore;
-    private String problema;
+    private List<String> documenti = new ArrayList<>();
 
     /**
-     * Crea un nuovo oggetto Hackathon.
+     * Costruisce un nuovo hackathon.
      *
-     * @param id                 identificativo univoco
-     * @param titolo             titolo dell'hackathon
-     * @param sede               luogo di svolgimento
-     * @param dataInizio         data di inizio
-     * @param dataFine           data di fine
-     * @param maxIscritti        numero massimo di partecipanti
-     * @param maxPersoneInUnTeam massimo membri per team
-     * @param inizioIscrizioni   data di apertura iscrizioni
-     * @param username
+     * @param id                 Identificativo univoco.
+     * @param titolo             Titolo dell'hackathon.
+     * @param sede               Luogo di svolgimento.
+     * @param dataInizio         Data di inizio.
+     * @param dataFine           Data di fine.
+     * @param maxIscritti        Numero massimo di partecipanti.
+     * @param maxPersoneInUnTeam Numero massimo di membri per team.
+     * @param inizioIscrizioni   Data di apertura iscrizioni.
+     * @param creatore           Username del creatore dell'hackathon.
      * @param trim
      */
     public Hackathon(int id, String titolo, String sede, LocalDate dataInizio, LocalDate dataFine,
-                     int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String username, String trim) {
+                     int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni,
+                     String creatore, String trim) {
         this.id = id;
         this.titolo = titolo;
         this.sede = sede;
@@ -50,16 +52,15 @@ public class Hackathon {
         this.inizioIscrizioni = inizioIscrizioni;
         this.creatore = creatore;
         this.iscrizioniAperte = false;
-        this.problema = trim;
     }
 
     /**
-     * Apre le iscrizioni se la data corrente è valida.
+     * Apre le iscrizioni se la data corrente è compresa nel periodo consentito.
      */
     public void apriIscrizioni() {
-        if (LocalDate.now().isAfter(inizioIscrizioni.minusDays(1)) &&
-                LocalDate.now().isBefore(dataInizio.minusDays(2).plusDays(1)) && !iscrizioniAperte) {
-            this.iscrizioniAperte = true;
+        LocalDate oggi = LocalDate.now();
+        if (!iscrizioniAperte && !oggi.isBefore(inizioIscrizioni) && oggi.isBefore(dataInizio.minusDays(1))) {
+            iscrizioniAperte = true;
         }
     }
 
@@ -67,34 +68,34 @@ public class Hackathon {
      * Chiude le iscrizioni.
      */
     public void chiudiIscrizioni() {
-        this.iscrizioniAperte = false;
+        iscrizioniAperte = false;
     }
 
     /**
-     * Verifica se le iscrizioni sono aperte.
+     * Restituisce true se le iscrizioni sono aperte.
      *
-     * @return true se aperte, false altrimenti
+     * @return true se aperte, false altrimenti.
      */
     public boolean isIscrizioniAperte() {
         return iscrizioniAperte;
     }
 
     /**
-     * Aggiunge un giudice all'hackathon.
+     * Aggiunge un giudice se non è già presente.
      *
-     * @param g giudice da aggiungere
+     * @param g giudice da aggiungere.
      */
-    public void aggiungiGiudice(Giudice g) {
+    public void aggiungiGiudice(Utente g) {
         if (!giudici.contains(g)) {
             giudici.add(g);
         }
     }
 
     /**
-     * Aggiunge un partecipante se non si supera il limite.
+     * Aggiunge un partecipante se non supera il limite massimo.
      *
-     * @param u partecipante da aggiungere
-     * @return true se aggiunto, false altrimenti
+     * @param u partecipante da aggiungere.
+     * @return true se aggiunto, false altrimenti.
      */
     public boolean aggiungiPartecipante(Utente u) {
         if (partecipanti.size() < maxIscritti && !partecipanti.contains(u)) {
@@ -107,38 +108,33 @@ public class Hackathon {
     /**
      * Pubblica il problema dell'hackathon.
      *
-     * @param p problema da pubblicare
+     * @param p problema da pubblicare.
      */
     public void pubblicaProblema(Problema p) {
         this.descrizioneProblema = p;
     }
 
     /**
-     * Aggiunge un team se non si supera il limite.
+     * Aggiunge un team se non si supera il limite massimo calcolato in base a iscritti e dimensione team.
      *
-     * @param t team da aggiungere
+     * @param t team da aggiungere.
      */
     public void aggiungiTeam(Team t) {
-        if (teams.size() < maxIscritti / maxPersoneInUnTeam) {
+        int maxTeams = maxIscritti / maxPersoneInUnTeam;
+        if (teams.size() < maxTeams) {
             teams.add(t);
         }
     }
 
     /**
-     * Restituisce la classifica dei team ordinata per punteggio.
+     * Restituisce la classifica dei team ordinata per punteggio decrescente.
      *
-     * @return lista ordinata dei team
+     * @return lista ordinata dei team.
      */
     public List<Team> getClassifica() {
         List<Team> classifica = new ArrayList<>(teams);
+        classifica.sort((team1, team2) -> Integer.compare(calcolaPunteggio(team2), calcolaPunteggio(team1)));
 
-        classifica.sort((team1, team2) -> {
-            int punteggioTeam1 = calcolaPunteggio(team1);
-            int punteggioTeam2 = calcolaPunteggio(team2);
-            return Integer.compare(punteggioTeam2, punteggioTeam1);
-        });
-
-        System.out.println("Classifica:");
         for (int i = 0; i < classifica.size(); i++) {
             Team team = classifica.get(i);
             System.out.println((i + 1) + ". " + team.getNome() + " - " + calcolaPunteggio(team) + " punti");
@@ -147,71 +143,141 @@ public class Hackathon {
         return classifica;
     }
 
+    /**
+     * Calcola il punteggio totale di un team sommando i valori dei voti ricevuti.
+     *
+     * @param team il team da valutare.
+     * @return punteggio totale.
+     */
     private int calcolaPunteggio(Team team) {
-        int punteggioTotale = 0;
-        for (Voto voto : team.getVoti()) {
-            punteggioTotale += voto.getValore();
-        }
-        return punteggioTotale;
+        return team.getVoti().stream()
+                .mapToInt(Voto::getValore)
+                .sum();
     }
 
-    public String getSede() { return sede; }
-    public String getCreatore() { return creatore; }
-    public String getProblema() { return problema; }
+    // --- Getters e Setters ---
 
-    /**
-     * Gets titolo.
-     *
-     * @return the titolo
-     */
+    public int getId() {
+        return id;
+    }
+
     public String getTitolo() {
         return titolo;
     }
 
-    /**
-     * Gets max iscritti.
-     *
-     * @return the max iscritti
-     */
+    public String getSede() {
+        return sede;
+    }
+
+    public LocalDate getDataInizio() {
+        return dataInizio;
+    }
+
+    public LocalDate getDataFine() {
+        return dataFine;
+    }
+
     public int getMaxIscritti() {
         return maxIscritti;
     }
 
-    /**
-     * Gets max persone in un team.
-     *
-     * @return the max persone in un team
-     */
     public int getMaxPersoneInUnTeam() {
         return maxPersoneInUnTeam;
     }
 
-    /**
-     * Gets partecipanti.
-     *
-     * @return the partecipanti
-     */
+    public LocalDate getInizioIscrizioni() {
+        return inizioIscrizioni;
+    }
+
+    public Problema getDescrizioneProblema() {
+        return descrizioneProblema;
+    }
+
+    public void setDescrizioneProblema(Problema descrizioneProblema) {
+        this.descrizioneProblema = descrizioneProblema;
+    }
+
+    public List<Utente> getGiudici() {
+        return List.copyOf(giudici);
+    }
+
+    public void setGiudici(List<Utente> giudici) {
+        this.giudici = new ArrayList<>(giudici);
+    }
+
     public List<Utente> getPartecipanti() {
         return List.copyOf(partecipanti);
     }
 
-    /**
-     * Gets teams.
-     *
-     * @return the teams
-     */
     public List<Team> getTeams() {
-        return teams;
+        return List.copyOf(teams);
     }
 
-    public String getProblema(String problema) {
-        return problema;
+    public String getCreatore() {
+        return creatore;
     }
 
-    public void setProblema(String problema) {
-        this.problema = problema;
+    public String getProblema() {
+        return descrizioneProblema != null ? descrizioneProblema.getTitolo() : "Nessun problema definito";
     }
 
+    /**
+     * Aggiunge un documento all'hackathon.
+     *
+     * @param nomeDocumento nome del documento.
+     */
+    public void aggiungiDocumento(String nomeDocumento) {
+        documenti.add(nomeDocumento);
+    }
+
+    /**
+     * Restituisce la lista dei documenti associati.
+     *
+     * @return lista di nomi documenti.
+     */
+    public List<String> getDocumenti() {
+        return List.copyOf(documenti);
+    }
+
+    /**
+     * Invia un invito a un utente, se non è già iscritto o giudice.
+     *
+     * @param utente utente da invitare.
+     * @return true se l'invito è stato inviato, false se utente già iscritto o giudice.
+     */
+    public boolean inviaInvitoA(Utente utente) {
+        if (partecipanti.contains(utente)) {
+            System.out.println("L'utente " + utente.getNome() + " è già iscritto all'hackathon.");
+            return false;
+        }
+        if (giudici.contains(utente)) {
+            System.out.println("L'utente " + utente.getNome() + " è già giudice dell'hackathon.");
+            return false;
+        }
+        partecipanti.add(utente);
+        System.out.println("Invito inviato a " + utente.getNome() + ".");
+        return true;
+    }
+
+    /**
+     * Verifica se un utente è invitato (partecipante o giudice).
+     *
+     * @param u utente da controllare.
+     * @return true se invitato, false altrimenti.
+     */
+    public boolean isUtenteInvitato(Utente u) {
+        return partecipanti.contains(u) || giudici.contains(u);
+    }
+
+    /**
+     * Verifica se un utente è iscritto come partecipante.
+     *
+     * @param u utente da controllare.
+     * @return true se iscritto, false altrimenti.
+     */
+    public boolean isUtenteIscritto(Utente u) {
+        return partecipanti.contains(u);
+    }
 
     @Override
     public String toString() {
@@ -222,28 +288,10 @@ public class Hackathon {
                 ", dataInizio=" + dataInizio +
                 ", dataFine=" + dataFine +
                 ", maxIscritti=" + maxIscritti +
-                ", maxComponenti=" + maxPersoneInUnTeam +
-                ", dataInizioIscrizioni=" + inizioIscrizioni +
+                ", maxPersoneInUnTeam=" + maxPersoneInUnTeam +
+                ", inizioIscrizioni=" + inizioIscrizioni +
                 ", creatore='" + creatore + '\'' +
-                ", problema='" + problema + '\'' +
+                ", descrizioneProblema=" + (descrizioneProblema != null ? descrizioneProblema.toString() : "N/A") +
                 '}';
-    }
-
-    // Aggiungi in Hackathon.java
-    private List<String> documenti = new ArrayList<>();
-
-    public void aggiungiDocumento(String nomeDocumento) {
-        documenti.add(nomeDocumento);
-    }
-
-    public List<String> getDocumenti() {
-        return documenti;
-    }
-
-    public void setGiudici(List<Utente> giudici) {
-        this.giudici = giudici;
-    }
-    protected List<Utente> getGiudici() {
-        return giudici;
     }
 }

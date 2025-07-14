@@ -50,16 +50,16 @@ public class Login extends JFrame {
             }}
 
 
-            enterButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String username = textField1.getText();
-                    String password = new String(passwordField1.getPassword());
-                    controller.login(username, password);
-                }
-            });
-
-        }
-
+        enterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = textField1.getText();
+                String password = new String(passwordField1.getPassword());
+                controller.login(username, password);
+            }
+        });
 
     }
+
+
+}

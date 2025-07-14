@@ -182,7 +182,4 @@ public class Utente {
         return username + " - " + nome + " " + cognome;
     }
 
-
-
-
 }
