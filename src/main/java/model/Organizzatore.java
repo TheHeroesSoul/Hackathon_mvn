@@ -32,12 +32,12 @@ package main.java.model;
          * @param maxIscritti        Il numero massimo di partecipanti all'hackathon.
          * @param maxPersoneInUnTeam Il numero massimo di persone per team.
          * @param inizioIscrizioni   La data di inizio delle iscrizioni all'hackathon.
-         * @param problema
          * @return Un oggetto Hackathon rappresentante l'hackathon creato.
          */
         public Hackathon creaHackathon(int id, String titolo, String sede, LocalDate dataInizio, LocalDate dataFine,
-                                       int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String problema) {
-            return new Hackathon(id, titolo, sede, dataInizio, dataFine, maxIscritti, maxPersoneInUnTeam, inizioIscrizioni,
-                                 this.getUsername(), problema.trim());
+                                       int maxIscritti, int maxPersoneInUnTeam, LocalDate inizioIscrizioni, String titoloProblema) {
+            Problema problemaObj = new Problema(titoloProblema.trim());
+            return new Hackathon(id, titolo, sede, dataInizio, dataFine, maxIscritti, maxPersoneInUnTeam,
+                    inizioIscrizioni, this.getUsername(), problemaObj);
         }
     }

@@ -1,68 +1,79 @@
 package main.java.model;
 
 /**
- * The type Problema.
+ * Rappresenta un problema da risolvere all'interno di un hackathon.
+ * Ogni problema può essere associato a un oggetto {@link Hackathon}.
  */
 public class Problema {
+
+    /** Descrizione testuale del problema. */
     private String descrizione;
+
+    /** Hackathon associato al problema (opzionale). */
     private Hackathon hackathon;
 
     /**
-     * Instantiates a new Problema.
+     * Costruisce un nuovo problema con la descrizione specificata.
      *
-     * @param descrizione the descrizione
-     * @param hackathon   the hackathon
+     * @param descrizione la descrizione del problema
      */
-    public Problema(String descrizione, Hackathon hackathon) {
+    public Problema(String descrizione) {
         this.descrizione = descrizione;
-        this.hackathon = hackathon;
     }
 
     /**
-     * Gets descrizione.
+     * Restituisce la descrizione del problema.
      *
-     * @return the descrizione
+     * @return la descrizione del problema
      */
     public String getDescrizione() {
         return descrizione;
     }
 
     /**
-     * Sets descrizione.
+     * Imposta la descrizione del problema.
      *
-     * @param descrizione the descrizione
+     * @param descrizione la nuova descrizione del problema
      */
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
 
     /**
-     * Gets hackathon.
+     * Restituisce l'hackathon associato al problema.
      *
-     * @return the hackathon
+     * @return l'hackathon associato oppure {@code null} se non è stato ancora assegnato
      */
     public Hackathon getHackathon() {
         return hackathon;
     }
 
     /**
-     * Sets hackathon.
+     * Associa un hackathon al problema.
      *
-     * @param hackathon the hackathon
+     * @param hackathon l'hackathon da associare
      */
     public void setHackathon(Hackathon hackathon) {
         this.hackathon = hackathon;
     }
 
-    @Override
-    public String toString() {
-        return "Problema{" +
-                "descrizione='" + descrizione + '\'' +
-                ", hackathon=" + hackathon.getTitolo() +
-                '}';
+    /**
+     * Restituisce il titolo del problema, corrispondente alla sua descrizione.
+     *
+     * @return la descrizione testuale del problema
+     */
+    public String getTitolo() {
+        return descrizione;
     }
 
-    public String getTitolo() {
-        return "Problema: " + descrizione;
+    /**
+     * Restituisce una rappresentazione testuale del problema, includendo anche il titolo dell'hackathon associato,
+     * se presente.
+     *
+     * @return descrizione del problema, seguita dal titolo dell'hackathon (se associato)
+     */
+    @Override
+    public String toString() {
+        return descrizione + (hackathon != null ? " - Hackathon: " + hackathon.getTitolo() : "");
     }
 }

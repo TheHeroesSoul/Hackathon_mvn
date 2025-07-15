@@ -57,8 +57,8 @@ public class PaginaHackathon extends JDialog {
         setLocationRelativeTo(parent);
 
         addWindowListener(new WindowAdapter() {
-            @Override public void windowClosed(WindowEvent e)  { if (homeView != null) homeView.mostra(); }
-            @Override public void windowClosing(WindowEvent e) { if (homeView != null) homeView.mostra(); }
+            @Override public void windowClosed(WindowEvent e)  {
+                if (homeView != null) homeView.mostra(); }
         });
 
         setVisible(true);
@@ -75,7 +75,7 @@ public class PaginaHackathon extends JDialog {
         info.add(new JLabel(hackathon.getCreatore()));
 
         JPanel centro = new JPanel(new BorderLayout(10, 10));
-        problemaArea.setText(controller.getDescrizioneProblema(hackathon));  // Chiedo la descrizione al controller
+        problemaArea.setText(controller.getDescrizioneProblema(hackathon));
         problemaArea.setEditable(false);
         problemaArea.setLineWrap(true);
         problemaArea.setWrapStyleWord(true);

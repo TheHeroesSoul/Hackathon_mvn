@@ -78,4 +78,7 @@ public class Voto {
             this.valore = valore;
     }
 
+    public int getPunteggio() {
+        return valore;
+    }
 }

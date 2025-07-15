@@ -2,6 +2,7 @@ package main.java.controller;
 
 import main.java.gui.*;
 import main.java.model.*;
+import main.java.model.Problema;
 
 import javax.swing.*;
 import java.awt.*;
@@ -157,6 +158,7 @@ public class Controller {
             return false;
         }
 
+        Problema problemaObj = new Problema(problema.trim());
         Hackathon h = new Hackathon(
                 0,
                 titolo.trim(),
@@ -167,9 +169,8 @@ public class Controller {
                 Integer.parseInt(maxComponenti.trim()),
                 LocalDate.parse(dataInizioIscrizioni.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 getAuthenticatedUser().getUsername(),
-                problema.trim()
+                problemaObj
         );
-
         aggiungiHackathon(h);
 
         List<Utente> utentiDisponibili = getTuttiUtenti();
@@ -235,7 +236,7 @@ public class Controller {
         if (hackathon == null) {
             return "";
         }
-        return hackathon.getProblema();
+        return String.valueOf(hackathon.getProblema());
     }
 
     public void aggiungiDocumentoAlHackathon(Hackathon hackathon, String documento) {

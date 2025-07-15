@@ -148,4 +148,11 @@ public class Team {
                 '}';
     }
 
+    public int getPunteggioTotale() {
+        int punteggioTotale = 0;
+        for (Voto voto : voti) {
+            punteggioTotale += voto.getPunteggio();
+        }
+        return punteggioTotale;
+    }
 }
