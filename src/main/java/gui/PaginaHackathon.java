@@ -22,7 +22,7 @@ public class PaginaHackathon extends JDialog {
 
     private final JButton tornaIndietro = new JButton("Torna alla Home");
     private final JButton aggiungiDoc = new JButton("Upload documento");
-    private final JButton mostraProblema = new JButton("Mostra problema");
+    //private final JButton mostraProblema = new JButton("Mostra problema");
     private JButton invitaUtente = new JButton("Invita Utente");
 
     private JComboBox<Team> teamComboBox;
@@ -122,7 +122,7 @@ public class PaginaHackathon extends JDialog {
         scrollClassifica.setBorder(BorderFactory.createTitledBorder("Classifica"));
 
         JPanel south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        south.add(mostraProblema);
+        //south.add(mostraProblema);
         south.add(invitaUtente);
         south.add(tornaIndietro);
 
@@ -138,11 +138,13 @@ public class PaginaHackathon extends JDialog {
 
         tornaIndietro.addActionListener(e -> dispose());
 
-        mostraProblema.addActionListener(e ->
+        /*mostraProblema.addActionListener(e ->
                 JOptionPane.showMessageDialog(this,
                         controller.getDescrizioneProblema(hackathon),
                         "Problema dell’Hackathon",
                         JOptionPane.INFORMATION_MESSAGE));
+        */
+
 
         aggiungiDoc.addActionListener(e -> {
             String nome = JOptionPane.showInputDialog(this, "Nome del documento da caricare:");

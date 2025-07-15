@@ -4,6 +4,7 @@ import main.java.controller.Controller;
 import main.java.model.Hackathon;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class Documenti extends JDialog {
     private JList<String> documentiList;
@@ -12,10 +13,14 @@ public class Documenti extends JDialog {
     private DefaultListModel<String> listModel;
     private JList list1;
     private JPanel panel1;
+    private Hackathon hackathon;
+    private Controller controller;
 
 
     public Documenti(Window parent, Hackathon hackathon, Controller controller) {
         super(parent, "Documenti - " + hackathon.getTitolo(), ModalityType.APPLICATION_MODAL);
+        this.hackathon = hackathon;
+        this.controller = controller;
 
         setSize(400, 300);
         setLocationRelativeTo(parent);
@@ -25,12 +30,12 @@ public class Documenti extends JDialog {
         mainPanel = new JPanel(new BorderLayout());
         aggiungiButton = new JButton("Aggiungi Documento");
 
-        // Layout
+
         mainPanel.add(new JScrollPane(documentiList), BorderLayout.CENTER);
         mainPanel.add(aggiungiButton, BorderLayout.SOUTH);
         setContentPane(mainPanel);
 
-        // Action listener
+
         aggiungiButton.addActionListener(e -> {
             String nomeDoc = JOptionPane.showInputDialog(
                     this,
@@ -40,15 +45,22 @@ public class Documenti extends JDialog {
             );
 
             if (nomeDoc != null && !nomeDoc.trim().isEmpty()) {
-                listModel.addElement(nomeDoc.trim());
+                // Aggiungi il documento tramite il controller
+                controller.aggiungiDocumentoAlHackathon(hackathon, nomeDoc.trim());
+                // Ricarica la lista dal modello
+                aggiornaDocumenti();
             }
         });
 
-        aggiornaDocumenti(hackathon);
+        aggiornaDocumenti();
     }
 
-    public void aggiornaDocumenti(Hackathon hackathon) {
+    public void aggiornaDocumenti() {
         listModel.clear();
+        List<String> documenti = controller.getDocumentiHackathon(hackathon);
+        for (String doc : documenti) {
+            listModel.addElement(doc);
 
     }
+}
 }
