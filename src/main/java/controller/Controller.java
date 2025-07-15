@@ -83,6 +83,13 @@ public class Controller {
 
     public void mostraPaginaHackathon(Hackathon hackathon) {
         if (homeView != null) {
+            Team teamDiProva = new Team("Team Prova");
+            hackathon.aggiungiTeam(teamDiProva);
+            Team teamDue = new Team("Team Forte");
+            hackathon.aggiungiTeam(teamDue);
+            Team teamTre = new Team("Team Spavaldo");
+            hackathon.aggiungiTeam(teamTre);
+
             homeView.nascondi();
             new PaginaHackathon(homeView.getFrame(), hackathon, this, homeView);
         }
@@ -208,7 +215,7 @@ public class Controller {
         if (voto < 1 || voto > 10) {
             throw new Exception("Il voto deve essere tra 1 e 10");
         }
-        // Aggiungi voto alla lista per il team
+
         votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
     }
 
@@ -226,9 +233,7 @@ public class Controller {
     }
 
     public List<String> getDocumentiHackathon(Hackathon hackathon) {
-        if (hackathon == null) {
-            return Collections.emptyList();
-        }
+        if (hackathon == null) return Collections.emptyList();
         return hackathon.getDocumenti();
     }
 
@@ -240,10 +245,8 @@ public class Controller {
     }
 
     public void aggiungiDocumentoAlHackathon(Hackathon hackathon, String documento) {
-        if (hackathon == null || documento == null || documento.trim().isEmpty()) {
-            return;
-        }
-        hackathon.getDocumenti().add(documento.trim());
+        if (hackathon == null) return;
+        hackathon.aggiungiDocumento(documento);
     }
 
     public List<Team> getTeamsHackathon(Hackathon hackathon) {

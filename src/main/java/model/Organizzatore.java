@@ -40,4 +40,10 @@ package main.java.model;
             return new Hackathon(id, titolo, sede, dataInizio, dataFine, maxIscritti, maxPersoneInUnTeam,
                     inizioIscrizioni, this.getUsername(), problemaObj);
         }
+
+            @Override
+            public String getRuolo() {
+                return "Organizzatore";
+            }
+
     }

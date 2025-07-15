@@ -182,4 +182,7 @@ public class Utente {
         return username + " - " + nome + " " + cognome;
     }
 
+    public String getRuolo() {
+        return "Utente";
+    }
 }

@@ -38,6 +38,13 @@ public class Team {
         hackathon.aggiungiTeam(this);
     }
 
+    public Team(String teamProva) {
+        this.nome = teamProva;
+        this.id = 0;
+        this.hackathon = null;
+        this.fondatore = null;
+    }
+
     /**
      * Aggiungi membro.
      *
@@ -130,6 +137,19 @@ public class Team {
     }
 
     /**
+     * Gets punteggio totale.
+     *
+     * @return the punteggio totale
+     */
+    public int getPunteggioTotale() {
+        int punteggioTotale = 0;
+        for (Voto voto : voti) {
+            punteggioTotale += voto.getPunteggio();
+        }
+        return punteggioTotale;
+    }
+
+    /**
      * Gets progressi.
      *
      * @return the progressi
@@ -140,19 +160,6 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Team{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", membri=" + membri.size() +
-                ", voti=" + voti.size() +
-                '}';
-    }
-
-    public int getPunteggioTotale() {
-        int punteggioTotale = 0;
-        for (Voto voto : voti) {
-            punteggioTotale += voto.getPunteggio();
-        }
-        return punteggioTotale;
+        return nome;
     }
 }
