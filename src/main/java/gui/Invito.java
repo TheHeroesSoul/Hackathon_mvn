@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class Inviti extends JDialog {
+public class Invito extends JDialog {
 
     private final Controller controller;
     private final Hackathon hackathon;
@@ -18,8 +18,9 @@ public class Inviti extends JDialog {
     private JButton invitaButton = new JButton("Invita selezionati");
     private JList list1;
     private JPanel contentPane;
+    private JButton buttonInvita;
 
-    public Inviti(Window parent, Controller controller, Hackathon hackathon) {
+    public Invito(Window parent, Controller controller, Hackathon hackathon) {
         super(parent, "Invita utenti a " + hackathon.getTitolo(), ModalityType.APPLICATION_MODAL);
         this.controller = controller;
         this.hackathon = hackathon;

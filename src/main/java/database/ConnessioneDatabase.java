@@ -33,7 +33,6 @@ public class ConnessioneDatabase {
 
 	}
 
-
 	/**
 	 * Gets instance.
 	 *

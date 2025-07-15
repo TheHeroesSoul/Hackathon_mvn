@@ -159,7 +159,7 @@ public class PaginaHackathon extends JDialog {
         });
 
         invitaUtente.addActionListener(e -> {
-            Inviti invitiDialog = new Inviti(this, controller, hackathon);
+            Invito invitiDialog = new Invito(this, controller, hackathon);
             invitiDialog.setVisible(true);
         });
 

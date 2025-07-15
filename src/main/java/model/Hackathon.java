@@ -99,7 +99,7 @@ public class Hackathon {
     /**
      * Apre le iscrizioni se la data attuale è corretta.
      */
-    
+
     public void apriIscrizioni() {
         LocalDate oggi = LocalDate.now();
         if (!iscrizioniAperte &&
@@ -173,7 +173,7 @@ public class Hackathon {
     /**
      * Aggiunge un documento all’hackathon.
      *
-     * @param nome nome del documento
+     * @param documento
      */
 
     public void aggiungiDocumento(String documento) {
