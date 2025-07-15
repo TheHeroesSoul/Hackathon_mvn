@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        // 1. Creo l'hackathon
+
         Problema problema = new Problema("Costruire un'app per la gestione di hackathon");
 
         Hackathon hackathon = new Hackathon(

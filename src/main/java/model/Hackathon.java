@@ -99,6 +99,7 @@ public class Hackathon {
     /**
      * Apre le iscrizioni se la data attuale è corretta.
      */
+    
     public void apriIscrizioni() {
         LocalDate oggi = LocalDate.now();
         if (!iscrizioniAperte &&
@@ -174,13 +175,16 @@ public class Hackathon {
      *
      * @param nome nome del documento
      */
-    public void aggiungiDocumento(String nome) {
-        documenti.add(nome);
+
+    public void aggiungiDocumento(String documento) {
+        if (documento != null && !documento.trim().isEmpty()) {
+            documenti.add(documento.trim());
+        }
     }
 
     /** @return lista immutabile dei documenti */
     public List<String> getDocumenti() {
-        return List.copyOf(documenti);
+        return documenti;
     }
 
     /**
