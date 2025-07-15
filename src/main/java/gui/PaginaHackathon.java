@@ -105,8 +105,8 @@ public class PaginaHackathon extends JDialog {
         votazioniPanel.add(teamComboBox, gbc);
 
         gbc.gridx = 0; gbc.gridy = 1;
-        votazioniPanel.add(new JLabel("Inserisci voto (1-10):"), gbc);
-        votoSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
+        votazioniPanel.add(new JLabel("Inserisci voto (0-10):"), gbc);
+        votoSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
         gbc.gridx = 1; gbc.gridy = 1;
         votazioniPanel.add(votoSpinner, gbc);
 
