@@ -11,13 +11,14 @@ package main.java.model;
         /**
          * Costruttore della classe Organizzatore.
          *
-         * @param id        L'ID univoco dell'organizzatore.
-         * @param username  Il nome utente dell'organizzatore.
-         * @param email     L'indirizzo email dell'organizzatore.
-         * @param nome      Il nome dell'organizzatore.
-         * @param cognome   Il cognome dell'organizzatore.
+         * @param id       L'ID univoco dell'organizzatore.
+         * @param username Il nome utente dell'organizzatore.
+         * @param email    L'indirizzo email dell'organizzatore.
+         * @param nome     Il nome dell'organizzatore.
+         * @param cognome  Il cognome dell'organizzatore.
+         * @param number
          */
-        public Organizzatore(int id, String username, String email, String nome, String cognome) {
+        public Organizzatore(int id, String username, String email, String nome, String cognome, String number) {
             super(id, username, email, nome, cognome);
         }
 

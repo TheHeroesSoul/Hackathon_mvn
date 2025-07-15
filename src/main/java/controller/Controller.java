@@ -212,8 +212,8 @@ public class Controller {
         if (!hackathon.getTeams().contains(team)) {
             throw new Exception("Il team non appartiene a questo hackathon");
         }
-        if (voto < 1 || voto > 10) {
-            throw new Exception("Il voto deve essere tra 1 e 10");
+        if (voto < 0 || voto > 10) {
+            throw new Exception("Il voto deve essere tra 0 e 10");
         }
 
         votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
