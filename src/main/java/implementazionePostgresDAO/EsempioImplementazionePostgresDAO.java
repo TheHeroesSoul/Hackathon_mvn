@@ -1,11 +1,11 @@
 package main.java.implementazionePostgresDAO;
-import main.java.dao.EsempioDAO;
+import main.java.dao.implementazionePostgresDAO;
 import main.java.database.ConnessioneDatabase;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class EsempioImplementazionePostgresDAO implements EsempioDAO {
+public class EsempioImplementazionePostgresDAO implements implementazionePostgresDAO {
 
 	private Connection connection;
 
