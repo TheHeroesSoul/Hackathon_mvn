@@ -9,6 +9,10 @@ public class HomePartecipante extends JFrame {
     private JList teamList;
     private JList utentiList;
     private JList invitoPanel;
+    private JList list2;
+    private JButton inviaDocumentiButton;
+    private JTextPane hackathonBelloTextPane;
+    private JButton backButton;
 
     public HomePartecipante() {
         setTitle("Home Partecipante");

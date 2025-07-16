@@ -14,7 +14,7 @@ import java.util.List;
 public class Hackathon {
 
     /** Identificativo numerico univoco dell’hackathon */
-    private final int id;
+    private int id;
 
     /** Titolo dell’hackathon */
     private final String titolo;
@@ -57,6 +57,7 @@ public class Hackathon {
 
     /** Giudici assegnati */
     private final List<Utente> giudici = new ArrayList<>();
+    private int maxComponenti;
 
     /**
      * Costruisce un nuovo oggetto Hackathon.
@@ -367,5 +368,17 @@ public class Hackathon {
                 ", creatore='" + creatore + '\'' +
                 ", problema=" + (problema != null ? problema.getDescrizione() : "N/A") +
                 '}';
+    }
+
+    public int getMaxComponenti() {
+        return maxComponenti;
+    }
+
+    public void setMaxComponenti(int maxComponenti) {
+        this.maxComponenti = maxComponenti;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

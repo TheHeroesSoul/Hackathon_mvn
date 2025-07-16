@@ -12,6 +12,10 @@ public class GestioneHackathon extends JFrame {
     private JButton ricercaButton;
     private JComboBox<String> filtraComboBox;
     private JButton backButton;
+    private JTextField textField1;
+    private JList list1;
+    private JComboBox comboBox1;
+    private JPanel panel1;
 
     public GestioneHackathon(Utente utente, String nomeHackathon) {
         setTitle("Gestione - " + nomeHackathon);

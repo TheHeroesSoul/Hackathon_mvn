@@ -168,4 +168,8 @@ public class Team {
     public String toString() {
         return nome;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

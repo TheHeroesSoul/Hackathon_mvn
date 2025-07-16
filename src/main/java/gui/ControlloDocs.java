@@ -6,6 +6,9 @@ import java.awt.event.*;
 
 public class ControlloDocs extends JDialog {
     private JList<String> list1;
+    private JPanel contentPane;
+    private JButton buttonOK;
+    private JButton buttonCancel;
     private JButton buttonInvia;
     private JButton buttonBack;
 

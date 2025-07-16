@@ -4,6 +4,10 @@ import main.java.gui.*;
 import main.java.model.*;
 import main.java.model.Problema;
 
+import main.java.dao.HackathonDAO;
+import main.java.dao.HackathonDAOImpl;
+import main.java.dao.UtenteDAO;
+import java.sql.SQLException;
 import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
@@ -30,12 +34,16 @@ public class Controller {
 
     private Map<Team, List<Integer>> votiPerTeam = new HashMap<>();
 
+    private HackathonDAO hackathonDAO;
+    private UtenteDAO utenteDAO;
+
     /**
      * Instantiates a new Controller.
      *
      * @param isAuthenticated the is authenticated
      */
     public Controller(boolean isAuthenticated) {
+
         this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
 
         tuttiUtenti.add(new Utente(0, "admin", "admin@email.com", "Admin", "Admin", "1234"));
@@ -44,6 +52,34 @@ public class Controller {
         tuttiUtenti.add(new Utente(3, "giudice3", "giudice3@email.com", "Anna", "Bianchi", "pass3"));
         tuttiUtenti.add(new Utente(4, "partecipante1", "partecipante1@email.com", "Sara", "Neri", "pass4"));
         tuttiUtenti.add(new Utente(5, "partecipante2", "partecipante2@email.com", "Marco", "Gialli", "pass5"));
+
+        try {
+            this.hackathonDAO = new HackathonDAOImpl();
+            //this.utenteDAO = new UtenteDAO();
+
+
+            this.tuttiUtenti = utenteDAO.getAllUtenti();
+
+
+            if (tuttiUtenti.isEmpty()) {
+                inizializzaDatiDefault();
+            }
+
+
+            this.hackathonList = hackathonDAO.getAllHackathon();
+
+        } catch (SQLException e) {
+            System.err.println("Errore nell'inizializzazione del database: " + e.getMessage());
+
+            inizializzaDatiDefault();
+            this.hackathonList = new ArrayList<>();
+        }
+
+        this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
+    }
+
+    private void inizializzaDatiDefault() {
+
     }
 
     /**
@@ -52,7 +88,15 @@ public class Controller {
      * @param h the h
      */
     public void aggiungiHackathon(Hackathon h) {
-        hackathonList.add(h);
+        try {
+            int id = hackathonDAO.inserisciHackathon(h);
+            h.setId(id); // Assumi che Hackathon abbia un metodo setId
+            hackathonList.add(h);
+        } catch (SQLException e) {
+            System.err.println("Errore nell'inserimento dell'hackathon: " + e.getMessage());
+            // Fallback alla gestione in memoria
+            hackathonList.add(h);
+        }
     }
 
     /**
@@ -86,15 +130,28 @@ public class Controller {
             return;
         }
 
-        boolean isAuthenticated = authenticateUser(username, password);
+        try {
+            Utente utente = utenteDAO.autenticaUtente(username, password);
+            if (utente != null) {
+                authenticatedUser = utente;
+                JOptionPane.showMessageDialog(loginView, "Login effettuato per: " + username, "Successo", JOptionPane.INFORMATION_MESSAGE);
+                loginView.dispose();
+                homeView = new Home(this, true);
+            } else {
+                JOptionPane.showMessageDialog(loginView, "Credenziali non valide!", "Errore", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore nell'autenticazione: " + e.getMessage());
 
-        if (isAuthenticated) {
-            authenticatedUser = new Utente(username);
-            JOptionPane.showMessageDialog(loginView, "Login effettuato per: " + username, "Successo", JOptionPane.INFORMATION_MESSAGE);
-            loginView.dispose();
-            homeView = new Home(this, isAuthenticated);
-        } else {
-            JOptionPane.showMessageDialog(loginView, "Credenziali non valide!", "Errore", JOptionPane.ERROR_MESSAGE);
+            boolean isAuthenticated = authenticateUser(username, password);
+            if (isAuthenticated) {
+                authenticatedUser = new Utente(username);
+                JOptionPane.showMessageDialog(loginView, "Login effettuato per: " + username, "Successo", JOptionPane.INFORMATION_MESSAGE);
+                loginView.dispose();
+                homeView = new Home(this, isAuthenticated);
+            } else {
+                JOptionPane.showMessageDialog(loginView, "Credenziali non valide!", "Errore", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -295,7 +352,27 @@ public class Controller {
             throw new Exception("Il voto deve essere tra 0 e 10");
         }
 
-        votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
+        try {
+
+            boolean success = hackathonDAO.registraVoto(
+                    team.getId(),
+                    authenticatedUser.getId(),
+                    hackathon.getId(),
+                    voto
+            );
+
+            if (!success) {
+                throw new Exception("Errore nella registrazione del voto");
+            }
+
+
+            votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
+
+        } catch (SQLException e) {
+            System.err.println("Errore nella registrazione del voto: " + e.getMessage());
+
+            votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
+        }
     }
 
     /**
@@ -319,6 +396,16 @@ public class Controller {
      * @return the int
      */
     public int calcolaSommaVoti(Team team) {
+        try {
+            List<Integer> votiDB = hackathonDAO.getVotiByTeam(team.getId());
+            if (!votiDB.isEmpty()) {
+                return votiDB.stream().mapToInt(Integer::intValue).sum();
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore nel caricamento dei voti: " + e.getMessage());
+        }
+
+
         List<Integer> voti = votiPerTeam.getOrDefault(team, Collections.emptyList());
         return voti.stream().mapToInt(Integer::intValue).sum();
     }

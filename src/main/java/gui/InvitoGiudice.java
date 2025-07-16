@@ -10,6 +10,7 @@ public class InvitoGiudice extends JDialog {
     private JButton accettaButton;
     private JButton standbyButton;
     private JButton rifiutaButton;
+    private JPanel contentPane;
     private JPanel mainPanel;
 
     public InvitoGiudice(JFrame parent) {
