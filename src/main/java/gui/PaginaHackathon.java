@@ -11,6 +11,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+/**
+ * The type Pagina hackathon.
+ */
 public class PaginaHackathon extends JDialog {
 
     private final Hackathon hackathon;
@@ -41,6 +44,14 @@ public class PaginaHackathon extends JDialog {
     private JTable classificaTable;
     private DefaultTableModel classificaModel;
 
+    /**
+     * Instantiates a new Pagina hackathon.
+     *
+     * @param parent     the parent
+     * @param hackathon  the hackathon
+     * @param controller the controller
+     * @param homeView   the home view
+     */
     public PaginaHackathon(Window parent,
                            Hackathon hackathon,
                            Controller controller,

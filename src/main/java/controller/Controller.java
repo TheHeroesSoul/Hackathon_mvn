@@ -14,6 +14,9 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Controller.
+ */
 public class Controller {
 
     private Home homeView;
@@ -27,6 +30,11 @@ public class Controller {
 
     private Map<Team, List<Integer>> votiPerTeam = new HashMap<>();
 
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param isAuthenticated the is authenticated
+     */
     public Controller(boolean isAuthenticated) {
         this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
 
@@ -38,18 +46,39 @@ public class Controller {
         tuttiUtenti.add(new Utente(5, "partecipante2", "partecipante2@email.com", "Marco", "Gialli", "pass5"));
     }
 
+    /**
+     * Aggiungi hackathon.
+     *
+     * @param h the h
+     */
     public void aggiungiHackathon(Hackathon h) {
         hackathonList.add(h);
     }
 
+    /**
+     * Gets hackathon list.
+     *
+     * @return the hackathon list
+     */
     public List<Hackathon> getHackathonList() {
         return hackathonList;
     }
 
+    /**
+     * Gets tutti utenti.
+     *
+     * @return the tutti utenti
+     */
     public List<Utente> getTuttiUtenti() {
         return tuttiUtenti;
     }
 
+    /**
+     * Login.
+     *
+     * @param username the username
+     * @param password the password
+     */
     public void login(String username, String password) {
         if (username == null || username.trim().isEmpty() ||
                 password == null || password.trim().isEmpty()) {
@@ -73,14 +102,29 @@ public class Controller {
         return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
     }
 
+    /**
+     * Gets authenticated user.
+     *
+     * @return the authenticated user
+     */
     public Utente getAuthenticatedUser() {
         return authenticatedUser;
     }
 
+    /**
+     * Show login.
+     *
+     * @param isAuthenticated the is authenticated
+     */
     public void showLogin(boolean isAuthenticated) {
         this.loginView = new Login(this, isAuthenticated, tuttiUtenti);
     }
 
+    /**
+     * Mostra pagina hackathon.
+     *
+     * @param hackathon the hackathon
+     */
     public void mostraPaginaHackathon(Hackathon hackathon) {
         if (homeView != null) {
             Team teamDiProva = new Team("Team Prova");
@@ -95,6 +139,20 @@ public class Controller {
         }
     }
 
+    /**
+     * Crea hackathon da form boolean.
+     *
+     * @param titolo               the titolo
+     * @param sede                 the sede
+     * @param dataInizio           the data inizio
+     * @param dataFine             the data fine
+     * @param maxIscritti          the max iscritti
+     * @param maxComponenti        the max componenti
+     * @param dataInizioIscrizioni the data inizio iscrizioni
+     * @param problema             the problema
+     * @param parent               the parent
+     * @return the boolean
+     */
     public boolean creaHackathonDaForm(
             String titolo,
             String sede,
@@ -188,6 +246,13 @@ public class Controller {
         return true;
     }
 
+    /**
+     * Invia invito boolean.
+     *
+     * @param hackathon the hackathon
+     * @param username  the username
+     * @return the boolean
+     */
     public boolean inviaInvito(Hackathon hackathon, String username) {
         Utente utente = trovaUtentePerNome(username);
         if (utente == null) return false;
@@ -202,10 +267,24 @@ public class Controller {
                 .orElse(null);
     }
 
+    /**
+     * Mostra documenti dialog.
+     *
+     * @param parent    the parent
+     * @param hackathon the hackathon
+     */
     public void mostraDocumentiDialog(Window parent, Hackathon hackathon) {
         new Documenti(parent, hackathon, this).setVisible(true);
     }
 
+    /**
+     * Registra voto.
+     *
+     * @param hackathon the hackathon
+     * @param team      the team
+     * @param voto      the voto
+     * @throws Exception the exception
+     */
     public void registraVoto(Hackathon hackathon, Team team, int voto) throws Exception {
         if (hackathon == null) throw new Exception("Hackathon nullo");
         if (team == null) throw new Exception("Team non selezionato");
@@ -219,6 +298,12 @@ public class Controller {
         votiPerTeam.computeIfAbsent(team, k -> new ArrayList<>()).add(voto);
     }
 
+    /**
+     * Gets classifica somma punteggi.
+     *
+     * @param hackathon the hackathon
+     * @return the classifica somma punteggi
+     */
     public List<Team> getClassificaSommaPunteggi(Hackathon hackathon) {
         if (hackathon == null) return Collections.emptyList();
 
@@ -227,16 +312,34 @@ public class Controller {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Calcola somma voti int.
+     *
+     * @param team the team
+     * @return the int
+     */
     public int calcolaSommaVoti(Team team) {
         List<Integer> voti = votiPerTeam.getOrDefault(team, Collections.emptyList());
         return voti.stream().mapToInt(Integer::intValue).sum();
     }
 
+    /**
+     * Gets documenti hackathon.
+     *
+     * @param hackathon the hackathon
+     * @return the documenti hackathon
+     */
     public List<String> getDocumentiHackathon(Hackathon hackathon) {
         if (hackathon == null) return Collections.emptyList();
         return hackathon.getDocumenti();
     }
 
+    /**
+     * Gets descrizione problema.
+     *
+     * @param hackathon the hackathon
+     * @return the descrizione problema
+     */
     public String getDescrizioneProblema(Hackathon hackathon) {
         if (hackathon == null) {
             return "";
@@ -244,11 +347,23 @@ public class Controller {
         return String.valueOf(hackathon.getProblema());
     }
 
+    /**
+     * Aggiungi documento al hackathon.
+     *
+     * @param hackathon the hackathon
+     * @param documento the documento
+     */
     public void aggiungiDocumentoAlHackathon(Hackathon hackathon, String documento) {
         if (hackathon == null) return;
         hackathon.aggiungiDocumento(documento);
     }
 
+    /**
+     * Gets teams hackathon.
+     *
+     * @param hackathon the hackathon
+     * @return the teams hackathon
+     */
     public List<Team> getTeamsHackathon(Hackathon hackathon) {
         if (hackathon == null) {
             return Collections.emptyList();
@@ -256,6 +371,11 @@ public class Controller {
         return hackathon.getTeams();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         boolean isAuthenticated = false;
         new Controller(isAuthenticated);

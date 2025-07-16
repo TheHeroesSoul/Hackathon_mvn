@@ -62,6 +62,15 @@ public class Utente {
         this.password = password;
     }
 
+    /**
+     * Instantiates a new Utente.
+     *
+     * @param id       the id
+     * @param username the username
+     * @param email    the email
+     * @param nome     the nome
+     * @param cognome  the cognome
+     */
     public Utente(int id, String username,String email, String nome, String cognome) {
         this.id = id;
         this.username = username;
@@ -182,6 +191,11 @@ public class Utente {
         return username + " - " + nome + " " + cognome;
     }
 
+    /**
+     * Gets ruolo.
+     *
+     * @return the ruolo
+     */
     public String getRuolo() {
         return "Utente";
     }

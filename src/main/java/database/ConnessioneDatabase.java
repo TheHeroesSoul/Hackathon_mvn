@@ -15,9 +15,9 @@ public class ConnessioneDatabase {
 	 * The Connection.
 	 */
 	public Connection connection = null;
-	private String nome = "postgres";
+	private String nome = "HackathonDBPOO";
 	private String password = "password";
-	private String url = "jdbc:postgresql://localhost:5433/Borsa";
+	private String url = "jdbc:postgresql://localhost:5432/HackathonDBPOO";
 	private String driver = "org.postgresql.Driver";
 
 	// COSTRUTTORE

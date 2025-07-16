@@ -38,6 +38,11 @@ public class Team {
         hackathon.aggiungiTeam(this);
     }
 
+    /**
+     * Instantiates a new Team.
+     *
+     * @param teamProva the team prova
+     */
     public Team(String teamProva) {
         this.nome = teamProva;
         this.id = 0;

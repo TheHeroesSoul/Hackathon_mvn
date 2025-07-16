@@ -99,7 +99,6 @@ public class Hackathon {
     /**
      * Apre le iscrizioni se la data attuale è corretta.
      */
-
     public void apriIscrizioni() {
         LocalDate oggi = LocalDate.now();
         if (!iscrizioniAperte &&
@@ -109,12 +108,18 @@ public class Hackathon {
         }
     }
 
-    /** Chiude le iscrizioni */
+    /**
+     * Chiude le iscrizioni
+     */
     public void chiudiIscrizioni() {
         iscrizioniAperte = false;
     }
 
-    /** @return true se le iscrizioni sono aperte */
+    /**
+     * Is iscrizioni aperte boolean.
+     *
+     * @return true se le iscrizioni sono aperte
+     */
     public boolean isIscrizioniAperte() {
         return iscrizioniAperte;
     }
@@ -160,12 +165,20 @@ public class Hackathon {
         this.problema = p;
     }
 
-    /** @return problema associato, può essere null */
+    /**
+     * Gets problema.
+     *
+     * @return problema associato, può essere null
+     */
     public Problema getProblema() {
         return problema;
     }
 
-    /** @return titolo sintetico del problema, o messaggio default */
+    /**
+     * Gets problema titolo.
+     *
+     * @return titolo sintetico del problema, o messaggio default
+     */
     public String getProblemaTitolo() {
         return problema != null ? problema.getTitolo() : "Nessun problema definito";
     }
@@ -173,16 +186,19 @@ public class Hackathon {
     /**
      * Aggiunge un documento all’hackathon.
      *
-     * @param documento
+     * @param documento the documento
      */
-
     public void aggiungiDocumento(String documento) {
         if (documento != null && !documento.trim().isEmpty()) {
             documenti.add(documento.trim());
         }
     }
 
-    /** @return lista immutabile dei documenti */
+    /**
+     * Gets documenti.
+     *
+     * @return lista immutabile dei documenti
+     */
     public List<String> getDocumenti() {
         return documenti;
     }
@@ -198,19 +214,95 @@ public class Hackathon {
         return c;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId()                         { return id; }
+
+    /**
+     * Gets titolo.
+     *
+     * @return the titolo
+     */
     public String getTitolo()                 { return titolo; }
+
+    /**
+     * Gets sede.
+     *
+     * @return the sede
+     */
     public String getSede()                   { return sede; }
+
+    /**
+     * Gets data inizio.
+     *
+     * @return the data inizio
+     */
     public LocalDate getDataInizio()          { return dataInizio; }
+
+    /**
+     * Gets data fine.
+     *
+     * @return the data fine
+     */
     public LocalDate getDataFine()            { return dataFine; }
+
+    /**
+     * Gets max iscritti.
+     *
+     * @return the max iscritti
+     */
     public int getMaxIscritti()               { return maxIscritti; }
+
+    /**
+     * Gets max persone in un team.
+     *
+     * @return the max persone in un team
+     */
     public int getMaxPersoneInUnTeam()        { return maxPersoneInUnTeam; }
+
+    /**
+     * Gets inizio iscrizioni.
+     *
+     * @return the inizio iscrizioni
+     */
     public LocalDate getInizioIscrizioni()    { return inizioIscrizioni; }
+
+    /**
+     * Gets creatore.
+     *
+     * @return the creatore
+     */
     public String getCreatore()               { return creatore; }
+
+    /**
+     * Gets teams.
+     *
+     * @return the teams
+     */
     public List<Team> getTeams()              { return List.copyOf(teams); }
+
+    /**
+     * Gets partecipanti.
+     *
+     * @return the partecipanti
+     */
     public List<Utente> getPartecipanti()     { return List.copyOf(partecipanti); }
+
+    /**
+     * Gets giudici.
+     *
+     * @return the giudici
+     */
     public List<Utente> getGiudici()          { return List.copyOf(giudici); }
 
+    /**
+     * Sets giudici.
+     *
+     * @param selezionati the selezionati
+     */
     public void setGiudici(List<Utente> selezionati) {
         if (selezionati != null) {
             this.giudici.clear();
@@ -220,6 +312,12 @@ public class Hackathon {
         }
     }
 
+    /**
+     * Invia invito a boolean.
+     *
+     * @param utente the utente
+     * @return the boolean
+     */
     public boolean inviaInvitoA(Utente utente) {
         if (partecipanti.contains(utente)) {
             System.out.println("Utente già iscritto: " + utente.getNome());
@@ -235,10 +333,22 @@ public class Hackathon {
         }
     }
 
+    /**
+     * Is utente invitato boolean.
+     *
+     * @param u the u
+     * @return the boolean
+     */
     public boolean isUtenteInvitato(Utente u) {
         return partecipanti.contains(u);
     }
 
+    /**
+     * Is utente iscritto boolean.
+     *
+     * @param u the u
+     * @return the boolean
+     */
     public boolean isUtenteIscritto(Utente u) {
         return partecipanti.contains(u);
     }

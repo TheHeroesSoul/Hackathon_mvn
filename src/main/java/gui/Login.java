@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * The type Login.
+ */
 public class Login extends JFrame {
     private JPasswordField passwordField1;
     private JTextField textField1;
@@ -16,6 +19,13 @@ public class Login extends JFrame {
     private JPanel loginPanel;
 
 
+    /**
+     * Instantiates a new Login.
+     *
+     * @param controller      the controller
+     * @param isAuthenticated the is authenticated
+     * @param tuttiUtenti     the tutti utenti
+     */
     public Login(Controller controller, boolean isAuthenticated, List<Utente> tuttiUtenti) {
         loginPanel = new JPanel();
         loginPanel.setLayout(new GridLayout(3, 2, 10, 10));

@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Documenti.
+ */
 public class Documenti extends JDialog {
     private JList<String> documentiList;
     private JPanel mainPanel;
@@ -17,6 +20,13 @@ public class Documenti extends JDialog {
     private Controller controller;
 
 
+    /**
+     * Instantiates a new Documenti.
+     *
+     * @param parent     the parent
+     * @param hackathon  the hackathon
+     * @param controller the controller
+     */
     public Documenti(Window parent, Hackathon hackathon, Controller controller) {
         super(parent, "Documenti - " + hackathon.getTitolo(), ModalityType.APPLICATION_MODAL);
         this.hackathon = hackathon;
@@ -45,9 +55,9 @@ public class Documenti extends JDialog {
             );
 
             if (nomeDoc != null && !nomeDoc.trim().isEmpty()) {
-                // Aggiungi il documento tramite il controller
+
                 controller.aggiungiDocumentoAlHackathon(hackathon, nomeDoc.trim());
-                // Ricarica la lista dal modello
+
                 aggiornaDocumenti();
             }
         });
@@ -55,6 +65,9 @@ public class Documenti extends JDialog {
         aggiornaDocumenti();
     }
 
+    /**
+     * Aggiorna documenti.
+     */
     public void aggiornaDocumenti() {
         listModel.clear();
         List<String> documenti = controller.getDocumentiHackathon(hackathon);

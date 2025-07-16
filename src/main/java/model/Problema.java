@@ -42,7 +42,7 @@ public class Problema {
     /**
      * Restituisce l'hackathon associato al problema.
      *
-     * @return l'hackathon associato oppure {@code null} se non è stato ancora assegnato
+     * @return l 'hackathon associato oppure {@code null} se non è stato ancora assegnato
      */
     public Hackathon getHackathon() {
         return hackathon;

@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Invito.
+ */
 public class Invito extends JDialog {
 
     private final Controller controller;
@@ -20,6 +23,13 @@ public class Invito extends JDialog {
     private JPanel contentPane;
     private JButton buttonInvita;
 
+    /**
+     * Instantiates a new Invito.
+     *
+     * @param parent     the parent
+     * @param controller the controller
+     * @param hackathon  the hackathon
+     */
     public Invito(Window parent, Controller controller, Hackathon hackathon) {
         super(parent, "Invita utenti a " + hackathon.getTitolo(), ModalityType.APPLICATION_MODAL);
         this.controller = controller;

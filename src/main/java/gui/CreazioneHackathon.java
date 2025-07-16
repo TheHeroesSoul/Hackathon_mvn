@@ -5,6 +5,9 @@ import javax.swing.*;
 
 import main.java.controller.Controller;
 
+/**
+ * The type Creazione hackathon.
+ */
 public class CreazioneHackathon extends JDialog {
     private JTextField titoloField;
     private JTextField sedeField;
@@ -19,6 +22,12 @@ public class CreazioneHackathon extends JDialog {
     private JPanel contentPane;
     private Controller controller;
 
+    /**
+     * Instantiates a new Creazione hackathon.
+     *
+     * @param utente     the utente
+     * @param controller the controller
+     */
     public CreazioneHackathon(Utente utente, Controller controller) {
         setTitle("Creazione Hackathon");
         setSize(400, 500);

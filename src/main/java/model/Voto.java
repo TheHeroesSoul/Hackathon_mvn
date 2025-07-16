@@ -78,6 +78,11 @@ public class Voto {
             this.valore = valore;
     }
 
+    /**
+     * Gets punteggio.
+     *
+     * @return the punteggio
+     */
     public int getPunteggio() {
         return valore;
     }

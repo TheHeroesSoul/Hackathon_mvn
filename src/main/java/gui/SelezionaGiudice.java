@@ -6,6 +6,9 @@ import java.util.List;
 import main.java.model.Hackathon;
 import main.java.model.Utente;
 
+/**
+ * The type Seleziona giudice.
+ */
 public class SelezionaGiudice extends JDialog {
     private Hackathon hackathon;
     private List<Utente> utentiDisponibili;
@@ -17,6 +20,13 @@ public class SelezionaGiudice extends JDialog {
     private JButton confermaButton;
     private JButton cancellaButton;
 
+    /**
+     * Instantiates a new Seleziona giudice.
+     *
+     * @param parent            the parent
+     * @param hackathon         the hackathon
+     * @param utentiDisponibili the utenti disponibili
+     */
     public SelezionaGiudice(java.awt.Window parent, Hackathon hackathon, List<Utente> utentiDisponibili) {
         super(parent, "Seleziona Giudice", ModalityType.APPLICATION_MODAL);
         this.hackathon = hackathon;

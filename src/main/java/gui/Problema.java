@@ -3,11 +3,19 @@ package main.java.gui;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * The type Problema.
+ */
 public class Problema extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JTextPane textPane1;
 
+    /**
+     * Instantiates a new Problema.
+     *
+     * @param problema the problema
+     */
     public Problema(String problema) {
         setTitle("Problema Hackathon");
         setContentPane(contentPane);

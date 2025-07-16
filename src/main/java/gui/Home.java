@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Home.
+ */
 public class Home {
     private JButton logoutButton;
     private JList<Hackathon> list1;
@@ -13,6 +16,12 @@ public class Home {
     private JFrame frame;
     private DefaultListModel<Hackathon> listModel;
 
+    /**
+     * Instantiates a new Home.
+     *
+     * @param controller      the controller
+     * @param isAuthenticated the is authenticated
+     */
     public Home(Controller controller, boolean isAuthenticated) {
         frame = new JFrame("Home");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,12 +68,25 @@ public class Home {
 
     }
 
+    /**
+     * Nascondi.
+     */
     public void nascondi() {
         frame.setVisible(false);
     }
+
+    /**
+     * Mostra.
+     */
     public void mostra() {
         frame.setVisible(true);
     }
+
+    /**
+     * Gets frame.
+     *
+     * @return the frame
+     */
     public JFrame getFrame() {
         return frame;
     }
